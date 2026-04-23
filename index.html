@@ -302,7 +302,7 @@ function buildForm(){
   html+=`<div class="notes-card">
     <div class="topic-label" style="color:#a78bfa">Notes</div>
     <textarea class="notes-textarea" id="notes-input"
-      placeholder="Did anything happen since your last check-in that you would like to discuss with your therapist at your next session?"></textarea>
+      placeholder="Did anything happen today that you would like to discuss with your therapist?"></textarea>
   </div>`;
   area.innerHTML=html;
   TOPICS.forEach(t=>updateSlider(t.key,5));
