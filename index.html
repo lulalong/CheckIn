@@ -219,6 +219,13 @@ canvas{width:100%!important;display:block}
   <div class="section-title">History</div>
   <div class="section-sub" id="history-sub">Trends &amp; patterns</div>
 
+  <div class="tab-row" style="margin-bottom:14px">
+    <button class="tab-btn active" id="tf-all"    onclick="setFilter('all')">All</button>
+    <button class="tab-btn" id="tf-mood"   onclick="setFilter('mood')"   style="border-bottom:2px solid #e94560">Mood</button>
+    <button class="tab-btn" id="tf-school" onclick="setFilter('school')" style="border-bottom:2px solid #f39c12">School</button>
+    <button class="tab-btn" id="tf-home"   onclick="setFilter('home')"   style="border-bottom:2px solid #3498db">Home</button>
+  </div>
+
   <div class="chart-card">
     <div class="chart-header">
       <span class="chart-title">All-time trend</span>
@@ -301,10 +308,11 @@ canvas{width:100%!important;display:block}
   <div class="settings-card" id="sync-card" style="display:none">
     <h3>📡 Sync with Mum</h3>
     <p style="font-size:0.8rem;color:var(--soft);line-height:1.5;margin-bottom:12px">
-      Push your latest data to GitHub so Mum can see it on her phone.
+      Data syncs automatically every time you save a check-in. You can also sync manually below.
     </p>
-    <button class="settings-btn" id="sync-btn" onclick="syncToGist()">Sync now</button>
+    <button class="settings-btn" id="sync-btn" onclick="syncToGist(false)">Sync now</button>
     <div class="status-line" id="sync-status"></div>
+    <button class="settings-btn" style="margin-top:8px;background:#25D366" onclick="shareGistLink()">💬 Send view link to Mum</button>
     <button class="settings-btn secondary" style="margin-top:6px" onclick="clearGistToken()">Remove token &amp; disconnect</button>
   </div>
 
@@ -354,6 +362,7 @@ const GIST_FILE= 'checkin_data.json';
 const DAYS     = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const DAYS_FULL= ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 let currentRange = 14;
+let topicFilter  = 'all'; // 'all' | 'mood' | 'school' | 'home'
 let parentMode   = false;   // true when viewing Neva's data from Mum's phone
 
 // ── STORAGE ──────────────────────────────────────────────
@@ -488,9 +497,24 @@ function submitToday(){
   const d=load();d[key]=entry;save(d);
   launchConfetti();showToast('Check-in saved! 🎉');
   setTimeout(()=>buildForm(),900);
+  autoSync();
 }
 
 // ── HISTORY ───────────────────────────────────────────────
+function setFilter(f){
+  topicFilter=f;
+  ['all','mood','school','home'].forEach(k=>{
+    const el=document.getElementById(`tf-${k}`);
+    if(!el)return;
+    el.classList.toggle('active',k===f);
+  });
+  buildHistory();
+}
+
+function activeTopics(){
+  return topicFilter==='all' ? TOPICS : TOPICS.filter(t=>t.key===topicFilter);
+}
+
 function setRange(days){
   currentRange=days;
   ['14','30','0'].forEach(r=>document.getElementById(`rt-${r}`).classList.toggle('active',parseInt(r)===days));
@@ -523,14 +547,14 @@ function buildHistoryTable(){
     wrap.innerHTML=`<div class="empty-state"><div class="e-icon">📋</div><p>No check-ins in this range yet.</p></div>`;
     return;
   }
-  const sums={},counts={};TOPICS.forEach(t=>{sums[t.key]=0;counts[t.key]=0;});
+  const sums={},counts={};activeTopics().forEach(t=>{sums[t.key]=0;counts[t.key]=0;});
   let html=`<table class="history-table"><thead><tr>
-    <th>Day</th>${TOPICS.map(t=>`<th style="color:${t.color}">${t.label}</th>`).join('')}
+    <th>Day</th>${activeTopics().map(t=>`<th style="color:${t.color}">${t.label}</th>`).join('')}
   </tr></thead><tbody>`;
   [...keys].reverse().forEach(k=>{
     const e=data[k],d=new Date(k+'T12:00:00');
     html+=`<tr><td>${DAYS[d.getDay()]} ${d.getDate()}/${d.getMonth()+1}</td>`;
-    TOPICS.forEach(t=>{const v=e[t.key];html+=`<td><span class="score-chip" style="background:${sc(v)}">${v}</span></td>`;sums[t.key]+=v;counts[t.key]++;});
+    activeTopics().forEach(t=>{const v=e[t.key];html+=`<td><span class="score-chip" style="background:${sc(v)}">${v}</span></td>`;sums[t.key]+=v;counts[t.key]++;});
     html+=`</tr>`;
     const hasNotes=e.good||e.bad||e.notes;
     if(hasNotes){
@@ -542,7 +566,7 @@ function buildHistoryTable(){
     }
   });
   html+=`<tr class="avg-row"><td style="color:var(--text)!important;font-size:0.75rem">Average</td>`;
-  TOPICS.forEach(t=>{const avg=counts[t.key]?(sums[t.key]/counts[t.key]).toFixed(1):'—';const col=counts[t.key]?sc(Math.round(sums[t.key]/counts[t.key])):'#555';html+=`<td><span class="score-chip" style="background:${col};font-size:0.7rem">${avg}</span></td>`;});
+  activeTopics().forEach(t=>{const avg=counts[t.key]?(sums[t.key]/counts[t.key]).toFixed(1):'—';const col=counts[t.key]?sc(Math.round(sums[t.key]/counts[t.key])):'#555';html+=`<td><span class="score-chip" style="background:${col};font-size:0.7rem">${avg}</span></td>`;});
   html+=`</tr></tbody></table>`;
   wrap.innerHTML=html;
 }
@@ -577,7 +601,7 @@ function drawTrendChart(keys,data){
     ctx.fillStyle='#44446a';ctx.font=`600 8px Nunito,sans-serif`;ctx.textAlign='right';ctx.fillText(v,P.l-4,y+3);
   }
   const xStep=cW/(keys.length-1);
-  TOPICS.forEach(t=>{
+  activeTopics().forEach(t=>{
     const pts=keys.map((k,i)=>({x:P.l+i*xStep,y:P.t+cH-((data[k][t.key]-1)/9)*cH}));
     ctx.beginPath();ctx.moveTo(pts[0].x,P.t+cH);pts.forEach(p=>ctx.lineTo(p.x,p.y));
     ctx.lineTo(pts[pts.length-1].x,P.t+cH);ctx.closePath();ctx.fillStyle=t.color+'15';ctx.fill();
@@ -598,15 +622,17 @@ function drawDowChart(keys,data){
   const {ctx,W,H}=initCanvas('chart-dow',150);
   const P={t:8,r:8,b:22,l:24};const cW=W-P.l-P.r,cH=H-P.t-P.b;
   const sums={},counts={};
-  DAYS.forEach((_,i)=>{sums[i]={};counts[i]={};TOPICS.forEach(t=>{sums[i][t.key]=0;counts[i][t.key]=0;});});
-  keys.forEach(k=>{const e=data[k];const dow=new Date(k+'T12:00:00').getDay();TOPICS.forEach(t=>{sums[dow][t.key]+=e[t.key];counts[dow][t.key]++;});});
+  DAYS.forEach((_,i)=>{sums[i]={};counts[i]={};activeTopics().forEach(t=>{sums[i][t.key]=0;counts[i][t.key]=0;});});
+  keys.forEach(k=>{const e=data[k];const dow=new Date(k+'T12:00:00').getDay();activeTopics().forEach(t=>{sums[dow][t.key]+=e[t.key];counts[dow][t.key]++;});});
   for(let v=2;v<=10;v+=2){
     const y=P.t+cH-(v/10)*cH;
     ctx.beginPath();ctx.strokeStyle='#1e1e38';ctx.lineWidth=1;ctx.moveTo(P.l,y);ctx.lineTo(P.l+cW,y);ctx.stroke();
     ctx.fillStyle='#44446a';ctx.font=`600 8px Nunito,sans-serif`;ctx.textAlign='right';ctx.fillText(v,P.l-4,y+3);
   }
-  const slotW=cW/7,barW=slotW/5,offs=[-1.5,0,1.5];
-  TOPICS.forEach((t,ti)=>{
+  const slotW=cW/7,barW=slotW/5;
+  const at=activeTopics();
+  const offs=at.length===1?[0]:at.length===2?[-1,1]:[-1.5,0,1.5];
+  at.forEach((t,ti)=>{
     DAYS.forEach((_,dow)=>{
       const avg=counts[dow][t.key]?sums[dow][t.key]/counts[dow][t.key]:null;
       if(avg===null)return;
@@ -629,7 +655,7 @@ function drawHeatmap(keys,data){
     const mon=new Date(d);mon.setDate(diff);const wk=fmtKey(mon);
     if(!weekMap[wk]){weekMap[wk]={};weeks.push(wk);}
     const dow=d.getDay()===0?6:d.getDay()-1;
-    TOPICS.forEach(t=>{if(!weekMap[wk][dow])weekMap[wk][dow]={};weekMap[wk][dow][t.key]=(data[k][t.key]||0);});
+    activeTopics().forEach(t=>{if(!weekMap[wk][dow])weekMap[wk][dow]={};weekMap[wk][dow][t.key]=(data[k][t.key]||0);});
   });
   weeks.sort();
   const showWeeks=Math.min(weeks.length,8);
@@ -650,7 +676,7 @@ function drawHeatmap(keys,data){
       const x=P.l+dow*cellW+1,y=P.t+wi*cellH+1,w=cellW-2,h=cellH-2;
       if(!cell){ctx.fillStyle='#12122a';ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,3);else ctx.rect(x,y,w,h);ctx.fill();}
       else{
-        const avg=TOPICS.reduce((s,t)=>s+(cell[t.key]||0),0)/TOPICS.length;
+        const avg=activeTopics().reduce((s,t)=>s+(cell[t.key]||0),0)/activeTopics().length;
         ctx.fillStyle=sc(avg);ctx.globalAlpha=0.7;
         ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,3);else ctx.rect(x,y,w,h);ctx.fill();
         ctx.globalAlpha=1;
@@ -687,26 +713,23 @@ function clearGistToken(){
   showToast('Disconnected');
 }
 
-async function syncToGist(){
+async function syncToGist(silent=false){
   const token=localStorage.getItem(GIST_TK);
-  if(!token){showToast('No token saved — see setup steps');return;}
+  if(!token){if(!silent)showToast('No token saved — see setup steps');return;}
   const btn=document.getElementById('sync-btn');
-  const status=document.getElementById('sync-status');
-  btn.innerHTML='<span class="spinner"></span>Syncing…';btn.disabled=true;
+  if(btn&&!silent){btn.innerHTML='<span class="spinner"></span>Syncing…';btn.disabled=true;}
   try{
     const data=load();
     const content=JSON.stringify(data,null,2);
     const existingId=localStorage.getItem(GIST_ID);
     let res,json;
     if(existingId){
-      // Update existing gist
       res=await fetch(`https://api.github.com/gists/${existingId}`,{
         method:'PATCH',
         headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},
         body:JSON.stringify({files:{[GIST_FILE]:{content}}})
       });
     }else{
-      // Create new gist
       res=await fetch('https://api.github.com/gists',{
         method:'POST',
         headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},
@@ -715,18 +738,30 @@ async function syncToGist(){
     }
     json=await res.json();
     if(!res.ok)throw new Error(json.message||'GitHub error');
-    // Save the gist ID for future updates
     localStorage.setItem(GIST_ID,json.id);
-    const when=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-    setStatus('sync-status',`Synced at ${when} ✓ — Mum can now view on her phone`,'ok');
-    // Also send WhatsApp with the view link
-    const viewUrl=`${location.href.split('?')[0]}?gist=${json.id}`;
-    const msg=`📊 Neva's check-in data has been updated!\n\nView it here:\n${viewUrl}`;
-    setTimeout(()=>{window.location.href=`whatsapp://send?phone=447911732383&text=${encodeURIComponent(msg)}`;},800);
+    if(!silent){
+      const when=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+      setStatus('sync-status',`Synced at ${when} ✓`,'ok');
+    }
   }catch(e){
-    setStatus('sync-status',`Error: ${e.message}`,'err');
+    if(!silent)setStatus('sync-status',`Error: ${e.message}`,'err');
   }
-  btn.innerHTML='Sync now';btn.disabled=false;
+  if(btn&&!silent){btn.innerHTML='Sync now';btn.disabled=false;}
+}
+
+// Silent auto-sync — fires after every save if a token exists
+function autoSync(){
+  const token=localStorage.getItem(GIST_TK);
+  if(!token)return;
+  syncToGist(true);
+}
+
+function shareGistLink(){
+  const gistId=localStorage.getItem(GIST_ID);
+  if(!gistId){showToast('Sync first to generate a link');return;}
+  const viewUrl=`${location.href.split('?')[0]}?gist=${gistId}`;
+  const msg=`📊 View Neva's check-in data here:\n${viewUrl}`;
+  window.location.href=`whatsapp://send?phone=447911732383&text=${encodeURIComponent(msg)}`;
 }
 
 // ── LOAD PARENT VIEW FROM GIST ───────────────────────────
@@ -878,6 +913,7 @@ function savePastDay(){
   document.getElementById('past-form').innerHTML='';selKey=null;
   document.querySelectorAll('.day-pill').forEach(el=>el.classList.remove('selected'));
   setTimeout(()=>{document.getElementById('past-modal').classList.remove('open');buildHistory();},800);
+  autoSync();
 }
 
 // ── RESET ─────────────────────────────────────────────────
