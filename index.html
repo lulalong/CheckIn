@@ -10,150 +10,195 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#0f0f1a; --card:#1a1a2e; --card2:#16213e;
-  --accent:#e94560; --soft:#a8a8c0; --text:#f0f0ff; --radius:20px;
-  --mood:#e94560; --school:#f39c12; --home:#3498db;
+:root{
+  --bg:#0f0f1a;--card:#1a1a2e;--card2:#16213e;
+  --accent:#e94560;--soft:#a8a8c0;--text:#f0f0ff;--radius:20px;
+  --mood:#e94560;--school:#f39c12;--home:#3498db;
+  --good:#2ecc71;--bad:#e74c3c;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);
   min-height:100dvh;display:flex;flex-direction:column;align-items:center;
   padding:0 0 60px;overflow-x:hidden}
 
-.header{width:100%;padding:18px 20px 14px;display:flex;justify-content:space-between;
-  align-items:center;position:sticky;top:0;background:var(--bg);z-index:10}
-.logo{font-size:1.1rem;font-weight:900;letter-spacing:-0.5px}
+.header{width:100%;padding:16px 18px 12px;display:flex;justify-content:space-between;
+  align-items:center;position:sticky;top:0;background:var(--bg);z-index:10;
+  border-bottom:1px solid #1e1e30}
+.logo{font-size:1.05rem;font-weight:900;letter-spacing:-0.5px}
 .logo span{color:var(--accent)}
-.nav-btn{background:var(--card);border:none;color:var(--soft);padding:8px 13px;
-  border-radius:30px;font-family:'Nunito',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.2s}
+.nav-btn{background:var(--card);border:none;color:var(--soft);padding:7px 12px;
+  border-radius:30px;font-family:'Nunito',sans-serif;font-size:0.76rem;font-weight:700;
+  cursor:pointer;transition:all 0.2s}
 .nav-btn.active{background:var(--accent);color:white}
+.nav-btn.parent-mode{background:#7c3aed;color:white}
 
-.screen{width:100%;max-width:480px;padding:0 18px;display:none;flex-direction:column;align-items:center}
+.screen{width:100%;max-width:500px;padding:0 16px;display:none;flex-direction:column;align-items:center}
 .screen.active{display:flex}
 
-.date-badge{background:var(--card);border-radius:30px;padding:7px 18px;
-  font-size:0.82rem;font-weight:700;color:var(--soft);margin-bottom:8px}
-.greeting{font-size:1.65rem;font-weight:900;text-align:center;line-height:1.2;margin-bottom:5px}
+/* MODE BANNER */
+.mode-banner{width:100%;max-width:500px;padding:10px 16px;display:none;
+  background:#7c3aed22;border-bottom:1px solid #7c3aed44;
+  font-size:0.78rem;font-weight:700;color:#a78bfa;text-align:center}
+.mode-banner.visible{display:block}
+
+/* TODAY */
+.date-badge{background:var(--card);border-radius:30px;padding:6px 16px;
+  font-size:0.8rem;font-weight:700;color:var(--soft);margin-bottom:8px;margin-top:16px}
+.greeting{font-size:1.6rem;font-weight:900;text-align:center;line-height:1.2;margin-bottom:4px}
 .greeting span{color:var(--accent)}
-.sub{font-size:0.87rem;color:var(--soft);text-align:center;margin-bottom:24px}
+.sub{font-size:0.85rem;color:var(--soft);text-align:center;margin-bottom:20px}
 
-.already-done{background:var(--card);border-radius:var(--radius);padding:28px 24px;text-align:center;width:100%}
-.already-done .tick{font-size:3rem;margin-bottom:10px}
-.already-done h2{font-size:1.2rem;font-weight:800;margin-bottom:6px}
-.already-done p{color:var(--soft);font-size:0.88rem;line-height:1.5}
+.already-done{background:var(--card);border-radius:var(--radius);padding:26px 22px;
+  text-align:center;width:100%}
+.already-done .tick{font-size:2.8rem;margin-bottom:8px}
+.already-done h2{font-size:1.15rem;font-weight:800;margin-bottom:5px}
+.already-done p{color:var(--soft);font-size:0.86rem;line-height:1.5}
 
-.topic-card{background:var(--card);border-radius:var(--radius);padding:20px 18px 16px;width:100%;margin-bottom:12px}
-.topic-label{font-size:0.95rem;font-weight:800;letter-spacing:0.5px;margin-bottom:3px;text-transform:uppercase}
-.topic-question{font-size:0.8rem;color:var(--soft);margin-bottom:16px}
-.face-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.face{font-size:1.9rem;line-height:1;transition:font-size 0.15s,opacity 0.15s}
-.value-display{font-size:2.3rem;font-weight:900;min-width:52px;text-align:center;line-height:1;transition:color 0.3s}
+.topic-card{background:var(--card);border-radius:var(--radius);padding:18px 16px 14px;
+  width:100%;margin-bottom:10px}
+.topic-label{font-size:0.9rem;font-weight:800;letter-spacing:0.5px;margin-bottom:2px;text-transform:uppercase}
+.topic-question{font-size:0.78rem;color:var(--soft);margin-bottom:14px}
+.face-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.face{font-size:1.8rem;line-height:1;transition:font-size 0.15s,opacity 0.15s}
+.value-display{font-size:2.1rem;font-weight:900;min-width:48px;text-align:center;
+  line-height:1;transition:color 0.3s}
 
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:4px;
-  outline:none;cursor:pointer;background:linear-gradient(to right,#e74c3c 0%,#2ecc71 100%)}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;
+  border-radius:4px;outline:none;cursor:pointer;
+  background:linear-gradient(to right,#e74c3c 0%,#2ecc71 100%)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;
   border-radius:50%;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.4);cursor:grab}
 input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
-input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:white;border:none}
-.scale-labels{display:flex;justify-content:space-between;font-size:0.68rem;color:var(--soft);margin-top:5px;font-weight:700}
+input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:white;border:none}
+.scale-labels{display:flex;justify-content:space-between;font-size:0.66rem;
+  color:var(--soft);margin-top:4px;font-weight:700}
 
-.notes-card{background:var(--card);border-radius:var(--radius);padding:20px 18px 16px;width:100%;margin-bottom:12px}
-.notes-textarea{width:100%;background:#0a0a14;border:2px solid #2a2a40;border-radius:12px;
-  color:var(--text);font-family:'Nunito',sans-serif;font-size:0.92rem;font-weight:600;
-  line-height:1.5;padding:11px 13px;resize:none;min-height:100px;outline:none;
-  transition:border-color 0.2s;margin-top:8px}
+.notes-card{border-radius:var(--radius);padding:16px 16px 14px;width:100%;margin-bottom:10px}
+.notes-card.good{background:#0d2018;border:1px solid #1a4a2a}
+.notes-card.bad{background:#1f0d0d;border:1px solid #4a1a1a}
+.notes-label{font-size:0.85rem;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.notes-prompt{font-size:0.75rem;color:var(--soft);margin-bottom:8px;line-height:1.4}
+.notes-textarea{width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.07);
+  border-radius:10px;color:var(--text);font-family:'Nunito',sans-serif;font-size:0.88rem;
+  font-weight:600;line-height:1.5;padding:10px 12px;resize:none;min-height:72px;
+  outline:none;transition:border-color 0.2s}
 .notes-textarea::placeholder{color:#3a3a5a}
-.notes-textarea:focus{border-color:#a78bfa}
+.notes-card.good .notes-textarea:focus{border-color:var(--good)}
+.notes-card.bad  .notes-textarea:focus{border-color:var(--bad)}
 
-.submit-btn{width:100%;padding:17px;background:var(--accent);color:white;border:none;
-  border-radius:var(--radius);font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:800;
+.submit-btn{width:100%;padding:16px;background:var(--accent);color:white;border:none;
+  border-radius:var(--radius);font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;
   cursor:pointer;transition:transform 0.15s,opacity 0.15s;margin-top:4px}
 .submit-btn:active{transform:scale(0.97);opacity:0.9}
 
-.section-title{font-size:1.4rem;font-weight:900;text-align:center;margin-bottom:4px}
-.section-sub{font-size:0.83rem;color:var(--soft);text-align:center;margin-bottom:20px}
+/* HISTORY */
+.section-title{font-size:1.35rem;font-weight:900;text-align:center;margin-bottom:4px;margin-top:16px}
+.section-sub{font-size:0.82rem;color:var(--soft);text-align:center;margin-bottom:16px}
 
-.range-tabs{display:flex;gap:6px;margin-bottom:16px;width:100%}
-.range-tab{flex:1;padding:8px;background:var(--card);border:none;border-radius:10px;
-  font-family:'Nunito',sans-serif;font-size:0.78rem;font-weight:700;color:var(--soft);cursor:pointer;transition:all 0.15s}
-.range-tab.active{background:var(--accent);color:white}
-
-.chart-card{background:var(--card);border-radius:var(--radius);padding:18px 14px 14px;width:100%;margin-bottom:16px}
-.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.chart-title{font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;color:var(--soft)}
-.chart-legend{display:flex;gap:10px}
-.legend-dot{display:flex;align-items:center;gap:4px;font-size:0.7rem;font-weight:700;color:var(--soft)}
-.legend-dot::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--c);display:block}
+.chart-card{background:var(--card);border-radius:var(--radius);padding:16px 14px 12px;
+  width:100%;margin-bottom:12px}
+.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.chart-title{font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;color:var(--soft)}
+.chart-legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.ldot{display:flex;align-items:center;gap:3px;font-size:0.67rem;font-weight:700;color:var(--soft)}
+.ldot::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--c);display:block}
 canvas{width:100%!important;display:block}
 
-.history-table{width:100%;border-collapse:separate;border-spacing:0 5px;font-size:0.83rem}
-.history-table th{font-size:0.68rem;font-weight:800;letter-spacing:0.7px;text-transform:uppercase;
-  color:var(--soft);padding:0 8px 7px;text-align:center}
-.history-table th:first-child{text-align:left}
-.history-table td{background:var(--card);padding:11px 8px;text-align:center;font-weight:700}
-.history-table td:first-child{border-radius:11px 0 0 11px;text-align:left;font-size:0.78rem;
-  color:var(--soft);padding-left:12px;font-weight:800}
-.history-table td:last-child{border-radius:0 11px 11px 0}
-.score-chip{display:inline-block;width:30px;height:30px;border-radius:50%;line-height:30px;
-  font-size:0.82rem;font-weight:900;color:white}
-.notes-row td{background:#11112a!important}
-.avg-row td{background:var(--card2)!important;font-size:0.75rem}
+.tab-row{display:flex;gap:5px;width:100%;margin-bottom:12px}
+.tab-btn{flex:1;padding:7px;background:var(--card);border:none;border-radius:9px;
+  font-family:'Nunito',sans-serif;font-size:0.74rem;font-weight:700;color:var(--soft);
+  cursor:pointer;transition:all 0.15s}
+.tab-btn.active{background:var(--accent);color:white}
 
-.action-row{display:flex;gap:9px;width:100%;margin-top:12px}
-.action-btn{flex:1;padding:13px;border:none;border-radius:var(--radius);
-  font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:800;cursor:pointer;transition:transform 0.15s}
+.history-table{width:100%;border-collapse:separate;border-spacing:0 4px;font-size:0.8rem}
+.history-table th{font-size:0.65rem;font-weight:800;letter-spacing:0.7px;text-transform:uppercase;
+  color:var(--soft);padding:0 7px 6px;text-align:center}
+.history-table th:first-child{text-align:left}
+.history-table td{background:var(--card);padding:10px 7px;text-align:center;font-weight:700}
+.history-table td:first-child{border-radius:10px 0 0 10px;text-align:left;font-size:0.75rem;
+  color:var(--soft);padding-left:11px;font-weight:800}
+.history-table td:last-child{border-radius:0 10px 10px 0}
+.score-chip{display:inline-block;width:28px;height:28px;border-radius:50%;line-height:28px;
+  font-size:0.78rem;font-weight:900;color:white}
+.notes-row td{background:#0d0d22!important;font-size:0.74rem;line-height:1.5;
+  border-radius:0 0 10px 10px!important;padding:6px 11px 9px!important}
+.avg-row td{background:var(--card2)!important}
+
+.action-row{display:flex;gap:8px;width:100%;margin-top:10px}
+.action-btn{flex:1;padding:12px;border:none;border-radius:var(--radius);
+  font-family:'Nunito',sans-serif;font-size:0.84rem;font-weight:800;cursor:pointer;transition:transform 0.15s}
 .action-btn:active{transform:scale(0.96)}
 .action-btn.primary{background:var(--accent);color:white}
 .action-btn.secondary{background:var(--card);color:var(--text)}
 .action-btn.green{background:#25D366;color:white}
+.action-btn.purple{background:#7c3aed;color:white}
+.action-btn.wide{flex:none;width:100%;margin-top:8px}
 
-.settings-card{background:var(--card);border-radius:var(--radius);padding:18px;width:100%;margin-bottom:12px}
-.settings-card h3{font-size:0.78rem;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;color:var(--soft);margin-bottom:10px}
-.reset-btn{width:100%;padding:13px;border-radius:12px;border:2px solid #444;
-  background:transparent;color:#888;font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer}
+/* SETTINGS */
+.settings-card{background:var(--card);border-radius:var(--radius);padding:16px;width:100%;margin-bottom:10px}
+.settings-card h3{font-size:0.76rem;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;
+  color:var(--soft);margin-bottom:9px}
+.settings-input{width:100%;background:#0a0a14;border:1px solid #2a2a40;border-radius:10px;
+  color:var(--text);font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:600;
+  padding:10px 12px;outline:none;margin-bottom:8px;transition:border-color 0.2s}
+.settings-input:focus{border-color:#7c3aed}
+.settings-btn{width:100%;padding:11px;border-radius:10px;border:none;
+  background:#7c3aed;color:white;font-family:'Nunito',sans-serif;
+  font-size:0.85rem;font-weight:800;cursor:pointer;margin-bottom:6px}
+.settings-btn.secondary{background:var(--card2);color:var(--soft)}
+.reset-btn{width:100%;padding:12px;border-radius:11px;border:2px solid #444;
+  background:transparent;color:#888;font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer}
+.status-line{font-size:0.76rem;color:var(--soft);margin-top:4px;line-height:1.4;min-height:16px}
+.status-line.ok{color:#2ecc71}
+.status-line.err{color:#e94560}
 
-.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:200;
+/* MODAL */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:200;
   display:flex;align-items:flex-end;justify-content:center;
   opacity:0;pointer-events:none;transition:opacity 0.25s}
 .modal-backdrop.open{opacity:1;pointer-events:all}
-.modal{background:#1a1a2e;border-radius:24px 24px 0 0;padding:20px 18px 44px;
-  width:100%;max-width:480px;transform:translateY(100%);
+.modal{background:#1a1a2e;border-radius:22px 22px 0 0;padding:18px 16px 44px;
+  width:100%;max-width:500px;transform:translateY(100%);
   transition:transform 0.32s cubic-bezier(0.34,1.1,0.64,1);max-height:92dvh;overflow-y:auto}
 .modal-backdrop.open .modal{transform:translateY(0)}
-.modal-handle{width:38px;height:4px;background:#3a3a5a;border-radius:2px;margin:0 auto 18px}
-.modal-title{font-size:1.05rem;font-weight:900;margin-bottom:3px}
-.modal-sub{font-size:0.8rem;color:var(--soft);margin-bottom:18px}
-
-.day-picker{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:18px}
-.day-pill{display:flex;flex-direction:column;align-items:center;padding:7px 3px;
-  border-radius:11px;background:#12122a;border:2px solid transparent;
+.modal-handle{width:36px;height:4px;background:#3a3a5a;border-radius:2px;margin:0 auto 16px}
+.modal-title{font-size:1rem;font-weight:900;margin-bottom:3px}
+.modal-sub{font-size:0.78rem;color:var(--soft);margin-bottom:16px}
+.day-picker{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px}
+.day-pill{display:flex;flex-direction:column;align-items:center;padding:6px 2px;
+  border-radius:10px;background:#12122a;border:2px solid transparent;
   cursor:pointer;transition:all 0.15s;font-family:'Nunito',sans-serif}
 .day-pill.selected{border-color:#a78bfa;background:#1e1640}
 .day-pill.done{border-color:#2ecc71}
-.day-pill .dp-name{font-size:0.6rem;font-weight:800;color:var(--soft)}
-.day-pill .dp-num{font-size:0.95rem;font-weight:900}
+.day-pill .dp-name{font-size:0.58rem;font-weight:800;color:var(--soft)}
+.day-pill .dp-num{font-size:0.9rem;font-weight:900}
 .day-pill .dp-dot{width:5px;height:5px;border-radius:50%;margin-top:2px}
 
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);
-  background:#2ecc71;color:white;padding:13px 26px;border-radius:30px;font-weight:800;
-  font-size:0.92rem;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:#2ecc71;color:white;padding:12px 24px;border-radius:30px;font-weight:800;
+  font-size:0.9rem;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
   z-index:300;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
 .toast.show{transform:translateX(-50%) translateY(0)}
-
 .confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
-.confetti-piece{position:absolute;width:10px;height:10px;border-radius:2px;animation:confettiFall 1.2s ease-in forwards}
-@keyframes confettiFall{0%{opacity:1;transform:translateY(-10px) rotate(0deg)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
-
-.empty-state{text-align:center;padding:36px 20px;color:var(--soft)}
-.empty-state .e-icon{font-size:2.8rem;margin-bottom:10px}
-.empty-state p{font-size:0.88rem;line-height:1.5}
+.confetti-piece{position:absolute;width:9px;height:9px;border-radius:2px;
+  animation:confettiFall 1.2s ease-in forwards}
+@keyframes confettiFall{0%{opacity:1;transform:translateY(-10px) rotate(0deg)}
+  100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
+.empty-state{text-align:center;padding:32px 20px;color:var(--soft)}
+.empty-state .e-icon{font-size:2.6rem;margin-bottom:8px}
+.empty-state p{font-size:0.86rem;line-height:1.5}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);
+  border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;margin-right:6px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 
+<div class="mode-banner" id="mode-banner">👁 Parent view — read only · Neva's data loaded from GitHub</div>
+
 <div class="header">
   <div class="logo">how are<span>.</span>you</div>
-  <div style="display:flex;gap:6px">
+  <div style="display:flex;gap:5px">
     <button class="nav-btn active" id="btn-today"    onclick="showScreen('today')">Today</button>
     <button class="nav-btn"        id="btn-history"  onclick="showScreen('history')">History</button>
     <button class="nav-btn"        id="btn-settings" onclick="showScreen('settings')">⚙</button>
@@ -172,43 +217,100 @@ canvas{width:100%!important;display:block}
 <!-- HISTORY -->
 <div class="screen" id="screen-history">
   <div class="section-title">History</div>
-  <div class="section-sub">All check-ins &amp; trends</div>
+  <div class="section-sub" id="history-sub">Trends &amp; patterns</div>
 
-  <div class="range-tabs">
-    <button class="range-tab active" id="rt-14" onclick="setRange(14)">2 weeks</button>
-    <button class="range-tab"        id="rt-30" onclick="setRange(30)">Month</button>
-    <button class="range-tab"        id="rt-0"  onclick="setRange(0)">All time</button>
+  <div class="chart-card">
+    <div class="chart-header">
+      <span class="chart-title">All-time trend</span>
+      <div class="chart-legend">
+        <span class="ldot" style="--c:var(--mood)">Mood</span>
+        <span class="ldot" style="--c:var(--school)">School</span>
+        <span class="ldot" style="--c:var(--home)">Home</span>
+      </div>
+    </div>
+    <canvas id="chart-trend" height="150"></canvas>
   </div>
 
   <div class="chart-card">
     <div class="chart-header">
-      <span class="chart-title">Trends</span>
+      <span class="chart-title">Average by day of week</span>
       <div class="chart-legend">
-        <span class="legend-dot" style="--c:var(--mood)">Mood</span>
-        <span class="legend-dot" style="--c:var(--school)">School</span>
-        <span class="legend-dot" style="--c:var(--home)">Home</span>
+        <span class="ldot" style="--c:var(--mood)">Mood</span>
+        <span class="ldot" style="--c:var(--school)">School</span>
+        <span class="ldot" style="--c:var(--home)">Home</span>
       </div>
     </div>
-    <canvas id="trend-chart" height="160"></canvas>
+    <canvas id="chart-dow" height="150"></canvas>
   </div>
 
+  <div class="chart-card">
+    <div class="chart-header">
+      <span class="chart-title">Weekly pattern heatmap</span>
+      <div class="chart-legend">
+        <span class="ldot" style="--c:#e74c3c">Low</span>
+        <span class="ldot" style="--c:#2ecc71">High</span>
+      </div>
+    </div>
+    <canvas id="chart-heat" height="100"></canvas>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab-btn active" id="rt-14" onclick="setRange(14)">2 weeks</button>
+    <button class="tab-btn"        id="rt-30" onclick="setRange(30)">Month</button>
+    <button class="tab-btn"        id="rt-0"  onclick="setRange(0)">All time</button>
+  </div>
   <div id="history-table-wrap" style="width:100%"></div>
 
-  <div class="action-row">
+  <div class="action-row" id="history-actions">
     <button class="action-btn green"   onclick="shareWhatsApp()">💬 WhatsApp</button>
     <button class="action-btn primary" onclick="downloadPDF()">📄 PDF</button>
   </div>
-  <button class="action-btn secondary" style="width:100%;margin-top:9px" onclick="openPastModal()">+ Fill in a missed day</button>
+  <button class="action-btn secondary wide" id="btn-missed" onclick="openPastModal()">+ Fill in a missed day</button>
 </div>
 
 <!-- SETTINGS -->
 <div class="screen" id="screen-settings">
-  <div class="section-title">Settings</div>
-  <div class="section-sub" style="margin-bottom:20px">Reminders &amp; data</div>
+  <div class="section-title" style="margin-bottom:4px">Settings</div>
+  <div class="section-sub" style="margin-bottom:16px">Reminders, sync &amp; data</div>
+
+  <!-- GIST SYNC CARD -->
+  <div class="settings-card" id="gist-card">
+    <h3>📡 Sync with Mum</h3>
+    <p style="font-size:0.8rem;color:var(--soft);line-height:1.5;margin-bottom:12px">
+      This lets Mum view your check-ins on her phone without needing yours.
+      You'll need to set this up once — ask Mum to follow the steps below.
+    </p>
+
+    <div id="gist-setup-steps" style="font-size:0.78rem;color:var(--soft);line-height:1.7;margin-bottom:12px;background:#0a0a14;border-radius:10px;padding:12px">
+      <strong style="color:var(--text);display:block;margin-bottom:6px">One-time setup (Mum does this):</strong>
+      1. Go to <strong style="color:#a78bfa">github.com → Settings → Developer settings → Personal access tokens → Tokens (classic)</strong><br>
+      2. Click <strong>Generate new token (classic)</strong><br>
+      3. Give it any name, e.g. <em>checkin-app</em><br>
+      4. Tick only <strong>gist</strong> under scopes<br>
+      5. Click <strong>Generate token</strong> and copy it<br>
+      6. Paste it into the box below and tap Save
+    </div>
+
+    <input class="settings-input" type="password" id="gist-token-input"
+      placeholder="Paste GitHub token here (ghp_...)" autocomplete="off">
+    <button class="settings-btn" onclick="saveGistToken()">Save token</button>
+    <div class="status-line" id="gist-token-status"></div>
+  </div>
+
+  <!-- SYNC BUTTON (shown once token saved) -->
+  <div class="settings-card" id="sync-card" style="display:none">
+    <h3>📡 Sync with Mum</h3>
+    <p style="font-size:0.8rem;color:var(--soft);line-height:1.5;margin-bottom:12px">
+      Push your latest data to GitHub so Mum can see it on her phone.
+    </p>
+    <button class="settings-btn" id="sync-btn" onclick="syncToGist()">Sync now</button>
+    <div class="status-line" id="sync-status"></div>
+    <button class="settings-btn secondary" style="margin-top:6px" onclick="clearGistToken()">Remove token &amp; disconnect</button>
+  </div>
 
   <div class="settings-card">
     <h3>Daily Reminder</h3>
-    <p style="font-size:0.85rem;color:var(--soft);line-height:1.6">
+    <p style="font-size:0.83rem;color:var(--soft);line-height:1.6">
       To get a daily reminder, just ask Siri:<br><br>
       <span style="color:var(--text);font-style:italic">"Hey Siri, remind me to do my check-in every day at 4pm"</span><br><br>
       That's all you need to do! 🎉
@@ -217,8 +319,8 @@ canvas{width:100%!important;display:block}
 
   <div class="settings-card">
     <h3>Data</h3>
-    <p style="font-size:0.82rem;color:var(--soft);margin-bottom:12px;line-height:1.5">
-      All your check-ins are saved permanently on this device. They'll only be lost if you clear Safari's website data.
+    <p style="font-size:0.8rem;color:var(--soft);margin-bottom:11px;line-height:1.5">
+      All check-ins are saved permanently on this device. They'll only be lost if Safari's website data is cleared.
     </p>
     <button class="reset-btn" onclick="resetAll()">Clear ALL data permanently</button>
   </div>
@@ -239,49 +341,90 @@ canvas{width:100%!important;display:block}
 </div>
 
 <script>
+// ── CONFIG ───────────────────────────────────────────────
 const TOPICS=[
   {key:'mood',  label:'Mood',  color:'#e94560'},
   {key:'school',label:'School',color:'#f39c12'},
   {key:'home',  label:'Home',  color:'#3498db'},
 ];
-const STORAGE_KEY='checkin_all_v2';
-const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const DAYS_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-let currentRange=14;
+const SK       = 'checkin_all_v2';
+const GIST_TK  = 'checkin_gist_token';
+const GIST_ID  = 'checkin_gist_id';
+const GIST_FILE= 'checkin_data.json';
+const DAYS     = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const DAYS_FULL= ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+let currentRange = 14;
+let parentMode   = false;   // true when viewing Neva's data from Mum's phone
 
-function loadData(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch{return {};}}
-function saveData(d){localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}
-function todayKey(){const n=new Date();return fmtKey(n);}
+// ── STORAGE ──────────────────────────────────────────────
+function load(){try{return JSON.parse(localStorage.getItem(SK))||{};}catch{return {};}}
+function save(d){localStorage.setItem(SK,JSON.stringify(d));}
+function todayKey(){return fmtKey(new Date());}
 function fmtKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 
-function scoreColor(v){
+// ── COLOUR ───────────────────────────────────────────────
+function sc(v){
   const t=(v-1)/9;
   return `rgb(${Math.round(231+(46-231)*t)},${Math.round(76+(204-76)*t)},${Math.round(60+(113-60)*t)})`;
 }
-function scoreFace(v){return v<=2?'😢':v<=4?'😕':v<=6?'😐':v<=8?'😊':'😄';}
 
-// ── TODAY ────────────────────────────────────
+// ── PARENT MODE INIT ─────────────────────────────────────
+// Mum's phone will have a gist_id stored but no token — that signals parent view
+function detectParentMode(){
+  const token = localStorage.getItem(GIST_TK);
+  const gistId= localStorage.getItem(GIST_ID);
+  // Parent mode: has a gist ID saved, but no write token on this device
+  // OR: user manually tapped "View as parent"
+  if(gistId && !token){
+    enterParentMode();
+  }
+  updateSettingsUI();
+}
+
+function enterParentMode(){
+  parentMode = true;
+  document.getElementById('mode-banner').classList.add('visible');
+  document.getElementById('submit-btn').style.display='none';
+  document.getElementById('btn-missed').style.display='none';
+  // Hide sync card, show load button
+  document.getElementById('gist-card').style.display='none';
+  document.getElementById('sync-card').style.display='none';
+}
+
+// ── TODAY FORM ────────────────────────────────────────────
 function buildForm(){
-  const key=todayKey(),data=loadData();
+  const key=todayKey(),data=load();
   const area=document.getElementById('form-area');
   const btn=document.getElementById('submit-btn');
+
+  if(parentMode){
+    area.innerHTML=`<div class="already-done">
+      <div class="tick">👁</div>
+      <h2>Parent view</h2>
+      <p>You're viewing Neva's data.<br>Check the <strong>History</strong> tab to see her scores and charts.</p>
+    </div>`;
+    btn.style.display='none';
+    return;
+  }
+
   if(data[key]){
     area.innerHTML=`<div class="already-done">
       <div class="tick">✅</div><h2>Done for today!</h2>
-      <p>Come back tomorrow, or check the <strong>History</strong> tab to see your scores.</p>
-      <div id="redo-confirm" style="margin-top:16px">
-        <button class="reset-btn" style="width:auto;padding:9px 18px;font-size:0.82rem" onclick="showRedoConfirm()">Redo today's check-in</button>
+      <p>Come back tomorrow, or check the <strong>History</strong> tab.</p>
+      <div id="redo-confirm" style="margin-top:14px">
+        <button class="reset-btn" style="width:auto;padding:8px 16px;font-size:0.8rem" onclick="showRedoConfirm()">Redo today's check-in</button>
       </div>
-      <div id="redo-sure" style="display:none;margin-top:16px">
-        <p style="font-size:0.82rem;color:var(--soft);margin-bottom:10px">Replace today's scores?</p>
-        <div style="display:flex;gap:9px;justify-content:center">
-          <button class="reset-btn" style="width:auto;padding:9px 16px;font-size:0.82rem" onclick="cancelRedo()">Cancel</button>
-          <button class="action-btn primary" style="width:auto;padding:9px 16px;font-size:0.82rem" onclick="confirmRedo()">Yes, redo it</button>
+      <div id="redo-sure" style="display:none;margin-top:14px">
+        <p style="font-size:0.8rem;color:var(--soft);margin-bottom:9px">Replace today's scores?</p>
+        <div style="display:flex;gap:8px;justify-content:center">
+          <button class="reset-btn" style="width:auto;padding:8px 14px;font-size:0.8rem" onclick="cancelRedo()">Cancel</button>
+          <button class="action-btn primary" style="width:auto;padding:8px 14px;font-size:0.8rem" onclick="confirmRedo()">Yes, redo it</button>
         </div>
       </div>
     </div>`;
     btn.style.display='none';return;
   }
+
   btn.style.display='block';
   let html='';
   TOPICS.forEach(t=>{
@@ -290,130 +433,334 @@ function buildForm(){
       <div class="topic-question">How do you feel about ${t.label.toLowerCase()} today?</div>
       <div class="face-row">
         <span class="face" id="face-${t.key}-left">😢</span>
-        <span class="value-display" id="val-${t.key}" style="color:${scoreColor(5)}">5</span>
+        <span class="value-display" id="val-${t.key}" style="color:${sc(5)}">5</span>
         <span class="face" id="face-${t.key}-right">😊</span>
       </div>
-      <div style="padding:4px 0">
-        <input type="range" min="1" max="10" value="5" id="slider-${t.key}" oninput="updateSlider('${t.key}',this.value)">
+      <div style="padding:3px 0">
+        <input type="range" min="1" max="10" value="5" id="slider-${t.key}" oninput="updSlider('${t.key}',this.value,'')">
       </div>
       <div class="scale-labels"><span>1 · Terrible</span><span>10 · Amazing</span></div>
     </div>`;
   });
-  html+=`<div class="notes-card">
-    <div class="topic-label" style="color:#a78bfa">Notes</div>
-    <textarea class="notes-textarea" id="notes-input"
-      placeholder="Did anything happen today that you would like to discuss with your therapist?"></textarea>
+  html+=`
+  <div class="notes-card good">
+    <div class="notes-label" style="color:var(--good)">🌟 Something good
+      <span style="color:var(--accent);font-size:0.72rem;font-weight:700;margin-left:4px">required</span>
+    </div>
+    <div class="notes-prompt">Name at least one good thing that happened today</div>
+    <textarea class="notes-textarea" id="notes-good" placeholder="Even something small counts..."></textarea>
+  </div>
+  <div class="notes-card bad">
+    <div class="notes-label" style="color:#e87070">💭 Something difficult</div>
+    <div class="notes-prompt">Did anything bad or difficult happen since your last check-in? Add a reminder so you remember to discuss with James.</div>
+    <textarea class="notes-textarea" id="notes-bad" placeholder="Optional — leave blank if nothing to add..."></textarea>
   </div>`;
   area.innerHTML=html;
-  TOPICS.forEach(t=>updateSlider(t.key,5));
+  TOPICS.forEach(t=>updSlider(t.key,5,''));
 }
 
-function updateSlider(key,v,pre=''){
+function updSlider(key,v,pre){
   v=parseInt(v);
   const ve=document.getElementById(`${pre}val-${key}`);
   const le=document.getElementById(`${pre}face-${key}-left`);
   const re=document.getElementById(`${pre}face-${key}-right`);
   if(!ve)return;
-  ve.textContent=v;ve.style.color=scoreColor(v);
+  ve.textContent=v;ve.style.color=sc(v);
   if(v<=5){le.style.opacity='1';le.style.fontSize=`${1.6+(6-v)*0.1}rem`;re.style.opacity='0.3';re.style.fontSize='1.5rem';}
   else{re.style.opacity='1';re.style.fontSize=`${1.6+(v-5)*0.1}rem`;le.style.opacity='0.3';le.style.fontSize='1.5rem';}
 }
 
 function showRedoConfirm(){document.getElementById('redo-confirm').style.display='none';document.getElementById('redo-sure').style.display='block';}
 function cancelRedo(){document.getElementById('redo-confirm').style.display='block';document.getElementById('redo-sure').style.display='none';}
-function confirmRedo(){const d=loadData();delete d[todayKey()];saveData(d);buildForm();}
+function confirmRedo(){const d=load();delete d[todayKey()];save(d);buildForm();}
 
 function submitToday(){
+  const goodEl=document.getElementById('notes-good');
+  if(!goodEl||!goodEl.value.trim()){
+    goodEl?.focus();
+    showToast('Please name at least one good thing 🌟');
+    return;
+  }
   const key=todayKey(),entry={date:key,ts:Date.now()};
   TOPICS.forEach(t=>{entry[t.key]=parseInt(document.getElementById(`slider-${t.key}`).value);});
-  entry.notes=(document.getElementById('notes-input')?.value||'').trim();
-  const d=loadData();d[key]=entry;saveData(d);
+  entry.good=(goodEl.value||'').trim();
+  entry.bad =(document.getElementById('notes-bad')?.value||'').trim();
+  const d=load();d[key]=entry;save(d);
   launchConfetti();showToast('Check-in saved! 🎉');
   setTimeout(()=>buildForm(),900);
 }
 
-// ── HISTORY ──────────────────────────────────
+// ── HISTORY ───────────────────────────────────────────────
 function setRange(days){
   currentRange=days;
   ['14','30','0'].forEach(r=>document.getElementById(`rt-${r}`).classList.toggle('active',parseInt(r)===days));
-  buildHistory();
+  buildHistoryTable();
 }
 
 function getKeys(days){
-  const data=loadData();let keys=Object.keys(data).sort();
+  const data=load();let keys=Object.keys(data).sort();
   if(days>0){const c=new Date();c.setDate(c.getDate()-days);const ck=fmtKey(c);keys=keys.filter(k=>k>=ck);}
   return keys;
 }
 
 function buildHistory(){
-  const keys=getKeys(currentRange),data=loadData();
-  drawChart(keys,data);
+  const data=load();
+  const allKeys=Object.keys(data).sort();
+  drawTrendChart(allKeys,data);
+  drawDowChart(allKeys,data);
+  drawHeatmap(allKeys,data);
+  buildHistoryTable();
+  // In parent mode hide the action buttons that require Neva's phone
+  if(parentMode){
+    document.getElementById('btn-missed').style.display='none';
+  }
+}
+
+function buildHistoryTable(){
+  const keys=getKeys(currentRange),data=load();
   const wrap=document.getElementById('history-table-wrap');
   if(keys.length===0){
-    wrap.innerHTML=`<div class="empty-state"><div class="e-icon">📋</div><p>No check-ins in this range yet.<br>Complete today's to get started!</p></div>`;
+    wrap.innerHTML=`<div class="empty-state"><div class="e-icon">📋</div><p>No check-ins in this range yet.</p></div>`;
     return;
   }
-  const sums={},counts={};
-  TOPICS.forEach(t=>{sums[t.key]=0;counts[t.key]=0;});
+  const sums={},counts={};TOPICS.forEach(t=>{sums[t.key]=0;counts[t.key]=0;});
   let html=`<table class="history-table"><thead><tr>
     <th>Day</th>${TOPICS.map(t=>`<th style="color:${t.color}">${t.label}</th>`).join('')}
   </tr></thead><tbody>`;
   [...keys].reverse().forEach(k=>{
     const e=data[k],d=new Date(k+'T12:00:00');
-    const ds=`${DAYS[d.getDay()]} ${d.getDate()}/${d.getMonth()+1}`;
-    html+=`<tr><td>${ds}</td>`;
-    TOPICS.forEach(t=>{const v=e[t.key];html+=`<td><span class="score-chip" style="background:${scoreColor(v)}">${v}</span></td>`;sums[t.key]+=v;counts[t.key]++;});
+    html+=`<tr><td>${DAYS[d.getDay()]} ${d.getDate()}/${d.getMonth()+1}</td>`;
+    TOPICS.forEach(t=>{const v=e[t.key];html+=`<td><span class="score-chip" style="background:${sc(v)}">${v}</span></td>`;sums[t.key]+=v;counts[t.key]++;});
     html+=`</tr>`;
-    if(e.notes)html+=`<tr class="notes-row"><td colspan="4" style="border-radius:0 0 11px 11px;padding:7px 12px 10px;font-size:0.78rem;color:#a78bfa;font-style:italic;line-height:1.4">💬 ${e.notes.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</td></tr>`;
+    const hasNotes=e.good||e.bad||e.notes;
+    if(hasNotes){
+      let parts=[];
+      if(e.good)parts.push(`<span style="color:#2ecc71">🌟</span> ${esc(e.good)}`);
+      if(e.bad) parts.push(`<span style="color:#e87070">💭</span> ${esc(e.bad)}`);
+      if(e.notes&&!e.good&&!e.bad)parts.push(`<span style="color:#a78bfa">💬</span> ${esc(e.notes)}`);
+      html+=`<tr class="notes-row"><td colspan="4">${parts.join('<br>')}</td></tr>`;
+    }
   });
-  html+=`<tr class="avg-row"><td>Average</td>`;
-  TOPICS.forEach(t=>{const avg=counts[t.key]?(sums[t.key]/counts[t.key]).toFixed(1):'—';const col=counts[t.key]?scoreColor(Math.round(sums[t.key]/counts[t.key])):'#555';html+=`<td><span class="score-chip" style="background:${col};font-size:0.72rem">${avg}</span></td>`;});
+  html+=`<tr class="avg-row"><td style="color:var(--text)!important;font-size:0.75rem">Average</td>`;
+  TOPICS.forEach(t=>{const avg=counts[t.key]?(sums[t.key]/counts[t.key]).toFixed(1):'—';const col=counts[t.key]?sc(Math.round(sums[t.key]/counts[t.key])):'#555';html+=`<td><span class="score-chip" style="background:${col};font-size:0.7rem">${avg}</span></td>`;});
   html+=`</tr></tbody></table>`;
   wrap.innerHTML=html;
 }
 
-// ── CHART ────────────────────────────────────
-function drawChart(keys,data){
-  const canvas=document.getElementById('trend-chart');
+function esc(s){return (s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+// ── CHARTS ────────────────────────────────────────────────
+function initCanvas(id,h){
+  const canvas=document.getElementById(id);
+  if(!canvas)return null;
   const ctx=canvas.getContext('2d');
   const dpr=window.devicePixelRatio||1;
-  const W=canvas.parentElement.clientWidth-28,H=160;
-  canvas.width=W*dpr;canvas.height=H*dpr;
-  canvas.style.width=W+'px';canvas.style.height=H+'px';
-  ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
-  if(keys.length<2){
-    ctx.fillStyle='#3a3a5a';ctx.font=`700 13px 'Nunito',sans-serif`;ctx.textAlign='center';
-    ctx.fillText('Add more check-ins to see your trend',W/2,H/2);return;
-  }
-  const P={t:10,r:10,b:28,l:26};
-  const cW=W-P.l-P.r,cH=H-P.t-P.b;
-  for(let v=0;v<=10;v+=2){
+  const W=canvas.parentElement.clientWidth-28;
+  canvas.width=W*dpr;canvas.height=h*dpr;
+  canvas.style.width=W+'px';canvas.style.height=h+'px';
+  ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,h);
+  return {ctx,W,H:h};
+}
+function emptyChart(id,msg,h){
+  const r=initCanvas(id,h);if(!r)return;const{ctx,W,H}=r;
+  ctx.fillStyle='#3a3a5a';ctx.font=`700 12px Nunito,sans-serif`;ctx.textAlign='center';
+  ctx.fillText(msg,W/2,H/2+4);
+}
+
+function drawTrendChart(keys,data){
+  if(keys.length<2){emptyChart('chart-trend','Add more check-ins to see trends',150);return;}
+  const {ctx,W,H}=initCanvas('chart-trend',150);
+  const P={t:8,r:8,b:24,l:24};const cW=W-P.l-P.r,cH=H-P.t-P.b;
+  for(let v=2;v<=10;v+=2){
     const y=P.t+cH-(v/10)*cH;
-    ctx.beginPath();ctx.strokeStyle=v===0?'#2a2a40':'#1e1e38';ctx.lineWidth=v===0?1.5:1;
-    ctx.moveTo(P.l,y);ctx.lineTo(P.l+cW,y);ctx.stroke();
-    if(v>0){ctx.fillStyle='#4a4a6a';ctx.font=`600 9px 'Nunito',sans-serif`;ctx.textAlign='right';ctx.fillText(v,P.l-4,y+3);}
+    ctx.beginPath();ctx.strokeStyle='#1e1e38';ctx.lineWidth=1;ctx.moveTo(P.l,y);ctx.lineTo(P.l+cW,y);ctx.stroke();
+    ctx.fillStyle='#44446a';ctx.font=`600 8px Nunito,sans-serif`;ctx.textAlign='right';ctx.fillText(v,P.l-4,y+3);
   }
   const xStep=cW/(keys.length-1);
   TOPICS.forEach(t=>{
     const pts=keys.map((k,i)=>({x:P.l+i*xStep,y:P.t+cH-((data[k][t.key]-1)/9)*cH}));
     ctx.beginPath();ctx.moveTo(pts[0].x,P.t+cH);pts.forEach(p=>ctx.lineTo(p.x,p.y));
-    ctx.lineTo(pts[pts.length-1].x,P.t+cH);ctx.closePath();ctx.fillStyle=t.color+'18';ctx.fill();
-    ctx.beginPath();ctx.strokeStyle=t.color;ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.lineCap='round';
+    ctx.lineTo(pts[pts.length-1].x,P.t+cH);ctx.closePath();ctx.fillStyle=t.color+'15';ctx.fill();
+    ctx.beginPath();ctx.strokeStyle=t.color;ctx.lineWidth=2;ctx.lineJoin='round';ctx.lineCap='round';
     pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));ctx.stroke();
-    pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,3.5,0,Math.PI*2);ctx.fillStyle=t.color;ctx.fill();});
+    pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,2.8,0,Math.PI*2);ctx.fillStyle=t.color;ctx.fill();});
   });
-  const labelEvery=Math.ceil(keys.length/5);
-  ctx.fillStyle='#4a4a6a';ctx.font=`600 9px 'Nunito',sans-serif`;ctx.textAlign='center';
+  const every=Math.ceil(keys.length/5);
+  ctx.fillStyle='#44446a';ctx.font=`600 8px Nunito,sans-serif`;ctx.textAlign='center';
   keys.forEach((k,i)=>{
-    if(i%labelEvery!==0&&i!==keys.length-1)return;
-    const d=new Date(k+'T12:00:00');
-    ctx.fillText(`${d.getDate()}/${d.getMonth()+1}`,P.l+i*xStep,H-6);
+    if(i%every!==0&&i!==keys.length-1)return;
+    const d=new Date(k+'T12:00:00');ctx.fillText(`${d.getDate()}/${d.getMonth()+1}`,P.l+i*xStep,H-5);
   });
 }
 
-// ── WHATSAPP ─────────────────────────────────
+function drawDowChart(keys,data){
+  if(keys.length<3){emptyChart('chart-dow','Need more data to show patterns',150);return;}
+  const {ctx,W,H}=initCanvas('chart-dow',150);
+  const P={t:8,r:8,b:22,l:24};const cW=W-P.l-P.r,cH=H-P.t-P.b;
+  const sums={},counts={};
+  DAYS.forEach((_,i)=>{sums[i]={};counts[i]={};TOPICS.forEach(t=>{sums[i][t.key]=0;counts[i][t.key]=0;});});
+  keys.forEach(k=>{const e=data[k];const dow=new Date(k+'T12:00:00').getDay();TOPICS.forEach(t=>{sums[dow][t.key]+=e[t.key];counts[dow][t.key]++;});});
+  for(let v=2;v<=10;v+=2){
+    const y=P.t+cH-(v/10)*cH;
+    ctx.beginPath();ctx.strokeStyle='#1e1e38';ctx.lineWidth=1;ctx.moveTo(P.l,y);ctx.lineTo(P.l+cW,y);ctx.stroke();
+    ctx.fillStyle='#44446a';ctx.font=`600 8px Nunito,sans-serif`;ctx.textAlign='right';ctx.fillText(v,P.l-4,y+3);
+  }
+  const slotW=cW/7,barW=slotW/5,offs=[-1.5,0,1.5];
+  TOPICS.forEach((t,ti)=>{
+    DAYS.forEach((_,dow)=>{
+      const avg=counts[dow][t.key]?sums[dow][t.key]/counts[dow][t.key]:null;
+      if(avg===null)return;
+      const x=P.l+dow*slotW+slotW/2+offs[ti]*barW*1.4;
+      const bH=(avg/10)*cH,y=P.t+cH-bH;
+      ctx.fillStyle=t.color+'cc';
+      ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x-barW/2,y,barW,bH,2);else ctx.rect(x-barW/2,y,barW,bH);ctx.fill();
+    });
+  });
+  ctx.fillStyle='#66668a';ctx.font=`700 9px Nunito,sans-serif`;ctx.textAlign='center';
+  DAYS.forEach((d,i)=>ctx.fillText(d,P.l+i*slotW+slotW/2,H-4));
+}
+
+function drawHeatmap(keys,data){
+  if(keys.length<2){emptyChart('chart-heat','Need more data for heatmap',100);return;}
+  const weeks=[],weekMap={};
+  keys.forEach(k=>{
+    const d=new Date(k+'T12:00:00');
+    const day=d.getDay(),diff=d.getDate()-day+(day===0?-6:1);
+    const mon=new Date(d);mon.setDate(diff);const wk=fmtKey(mon);
+    if(!weekMap[wk]){weekMap[wk]={};weeks.push(wk);}
+    const dow=d.getDay()===0?6:d.getDay()-1;
+    TOPICS.forEach(t=>{if(!weekMap[wk][dow])weekMap[wk][dow]={};weekMap[wk][dow][t.key]=(data[k][t.key]||0);});
+  });
+  weeks.sort();
+  const showWeeks=Math.min(weeks.length,8);
+  const hNeeded=showWeeks*18+20;
+  const {ctx,W,H}=initCanvas('chart-heat',hNeeded);
+  const P={t:16,r:4,b:4,l:36};
+  const cW=W-P.l-P.r,cellW=cW/7,cellH=(H-P.t-P.b)/showWeeks;
+  const DOW_SHORT=['M','T','W','T','F','S','S'];
+  ctx.fillStyle='#66668a';ctx.font=`700 9px Nunito,sans-serif`;ctx.textAlign='center';
+  DOW_SHORT.forEach((d,i)=>ctx.fillText(d,P.l+i*cellW+cellW/2,11));
+  weeks.slice(-showWeeks).forEach((wk,wi)=>{
+    const wd=weekMap[wk];
+    const wDate=new Date(wk+'T12:00:00');
+    ctx.fillStyle='#44446a';ctx.font=`600 8px Nunito,sans-serif`;ctx.textAlign='right';
+    ctx.fillText(`${wDate.getDate()}/${wDate.getMonth()+1}`,P.l-4,P.t+wi*cellH+cellH/2+3);
+    for(let dow=0;dow<7;dow++){
+      const cell=wd[dow];
+      const x=P.l+dow*cellW+1,y=P.t+wi*cellH+1,w=cellW-2,h=cellH-2;
+      if(!cell){ctx.fillStyle='#12122a';ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,3);else ctx.rect(x,y,w,h);ctx.fill();}
+      else{
+        const avg=TOPICS.reduce((s,t)=>s+(cell[t.key]||0),0)/TOPICS.length;
+        ctx.fillStyle=sc(avg);ctx.globalAlpha=0.7;
+        ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,3);else ctx.rect(x,y,w,h);ctx.fill();
+        ctx.globalAlpha=1;
+        ctx.fillStyle='rgba(255,255,255,0.9)';ctx.font=`700 8px Nunito,sans-serif`;ctx.textAlign='center';
+        ctx.fillText(avg.toFixed(0),x+w/2,y+h/2+3);
+      }
+    }
+  });
+}
+
+// ── GITHUB GIST SYNC ─────────────────────────────────────
+function updateSettingsUI(){
+  const token=localStorage.getItem(GIST_TK);
+  document.getElementById('gist-card').style.display = token ? 'none' : 'block';
+  document.getElementById('sync-card').style.display  = token ? 'block' : 'none';
+}
+
+function saveGistToken(){
+  const input=document.getElementById('gist-token-input');
+  const val=(input.value||'').trim();
+  if(!val||!val.startsWith('ghp_')){
+    setStatus('gist-token-status','Token should start with ghp_ — please check and try again','err');
+    return;
+  }
+  localStorage.setItem(GIST_TK,val);
+  input.value='';
+  setStatus('gist-token-status','Token saved ✓','ok');
+  updateSettingsUI();
+}
+
+function clearGistToken(){
+  localStorage.removeItem(GIST_TK);
+  updateSettingsUI();
+  showToast('Disconnected');
+}
+
+async function syncToGist(){
+  const token=localStorage.getItem(GIST_TK);
+  if(!token){showToast('No token saved — see setup steps');return;}
+  const btn=document.getElementById('sync-btn');
+  const status=document.getElementById('sync-status');
+  btn.innerHTML='<span class="spinner"></span>Syncing…';btn.disabled=true;
+  try{
+    const data=load();
+    const content=JSON.stringify(data,null,2);
+    const existingId=localStorage.getItem(GIST_ID);
+    let res,json;
+    if(existingId){
+      // Update existing gist
+      res=await fetch(`https://api.github.com/gists/${existingId}`,{
+        method:'PATCH',
+        headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},
+        body:JSON.stringify({files:{[GIST_FILE]:{content}}})
+      });
+    }else{
+      // Create new gist
+      res=await fetch('https://api.github.com/gists',{
+        method:'POST',
+        headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},
+        body:JSON.stringify({description:'Neva check-in data',public:false,files:{[GIST_FILE]:{content}}})
+      });
+    }
+    json=await res.json();
+    if(!res.ok)throw new Error(json.message||'GitHub error');
+    // Save the gist ID for future updates
+    localStorage.setItem(GIST_ID,json.id);
+    const when=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    setStatus('sync-status',`Synced at ${when} ✓ — Mum can now view on her phone`,'ok');
+    // Also send WhatsApp with the view link
+    const viewUrl=`${location.href.split('?')[0]}?gist=${json.id}`;
+    const msg=`📊 Neva's check-in data has been updated!\n\nView it here:\n${viewUrl}`;
+    setTimeout(()=>{window.location.href=`whatsapp://send?phone=447911732383&text=${encodeURIComponent(msg)}`;},800);
+  }catch(e){
+    setStatus('sync-status',`Error: ${e.message}`,'err');
+  }
+  btn.innerHTML='Sync now';btn.disabled=false;
+}
+
+// ── LOAD PARENT VIEW FROM GIST ───────────────────────────
+async function loadFromGist(gistId){
+  showToast('Loading data…');
+  try{
+    const res=await fetch(`https://api.github.com/gists/${gistId}`);
+    if(!res.ok)throw new Error('Could not load data');
+    const json=await res.json();
+    const content=json.files[GIST_FILE]?.content;
+    if(!content)throw new Error('No data found in Gist');
+    const data=JSON.parse(content);
+    // Store gist ID (no token) so next visit auto-loads parent mode
+    localStorage.setItem(GIST_ID,gistId);
+    localStorage.removeItem(SK); // clear any local data on Mum's phone
+    save(data);
+    showToast('Data loaded ✓');
+    enterParentMode();
+    buildForm();
+    buildHistory();
+  }catch(e){
+    showToast('Could not load: '+e.message);
+  }
+}
+
+function setStatus(id,msg,type){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.textContent=msg;el.className='status-line '+(type||'');
+}
+
+// ── WHATSAPP ─────────────────────────────────────────────
 function shareWhatsApp(){
-  const data=loadData();const allKeys=Object.keys(data).sort();const keys=allKeys.slice(-10);
+  const data=load();const allKeys=Object.keys(data).sort();const keys=allKeys.slice(-10);
   if(keys.length===0){showToast('No data to share yet!');return;}
   const faces=v=>v<=2?'😢':v<=4?'😕':v<=6?'😐':v<=8?'😊':'😄';
   const from=new Date(keys[0]+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'});
@@ -423,15 +770,17 @@ function shareWhatsApp(){
     const e=data[k],d=new Date(k+'T12:00:00');
     msg+=`*${d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}*\n`;
     TOPICS.forEach(t=>{msg+=`  ${t.label}: ${e[t.key]}/10 ${faces(e[t.key])}\n`;});
-    if(e.notes)msg+=`  💬 _${e.notes}_\n`;
+    if(e.good)msg+=`  🌟 ${e.good}\n`;
+    if(e.bad) msg+=`  💭 ${e.bad}\n`;
+    if(e.notes&&!e.good&&!e.bad)msg+=`  💬 ${e.notes}\n`;
     msg+='\n';
   });
   window.location.href=`whatsapp://send?phone=447911732383&text=${encodeURIComponent(msg)}`;
 }
 
-// ── PDF ──────────────────────────────────────
+// ── PDF ───────────────────────────────────────────────────
 function downloadPDF(){
-  const keys=getKeys(currentRange),data=loadData();
+  const keys=getKeys(currentRange),data=load();
   if(keys.length===0){showToast('No data in this range!');return;}
   const win=window.open('','_blank');
   const sums={},counts={};TOPICS.forEach(t=>{sums[t.key]=0;counts[t.key]=0;});
@@ -439,19 +788,23 @@ function downloadPDF(){
   keys.forEach(k=>{
     const e=data[k],d=new Date(k+'T12:00:00');
     const ds=`${DAYS_FULL[d.getDay()]}, ${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
-    const nt=e.notes?e.notes.replace(/</g,'&lt;').replace(/>/g,'&gt;'):'—';
-    rows+=`<tr><td>${ds}</td>${TOPICS.map(t=>{sums[t.key]+=e[t.key];counts[t.key]++;return `<td style="text-align:center;font-weight:700;color:${scoreColor(e[t.key])}">${e[t.key]}/10</td>`;}).join('')}<td style="font-size:0.83rem;color:#444;font-style:${e.notes?'italic':'normal'}">${nt}</td></tr>`;
+    let notesHtml='';
+    if(e.good)notesHtml+=`<div style="color:#1a7a3a">🌟 ${esc(e.good)}</div>`;
+    if(e.bad) notesHtml+=`<div style="color:#a03030;margin-top:2px">💭 ${esc(e.bad)}</div>`;
+    if(e.notes&&!e.good&&!e.bad)notesHtml+=`<div style="color:#555">💬 ${esc(e.notes)}</div>`;
+    rows+=`<tr><td>${ds}</td>${TOPICS.map(t=>{sums[t.key]+=e[t.key];counts[t.key]++;return `<td style="text-align:center;font-weight:700;color:${sc(e[t.key])}">${e[t.key]}/10</td>`;}).join('')}<td style="font-size:0.8rem;line-height:1.4">${notesHtml||'—'}</td></tr>`;
   });
-  const avgRow=`<tr style="background:#f5f5f5;font-weight:800"><td>Average</td>${TOPICS.map(t=>{const avg=counts[t.key]?(sums[t.key]/counts[t.key]).toFixed(1):'—';return `<td style="text-align:center;color:${scoreColor(Math.round(sums[t.key]/counts[t.key]))}">${avg}</td>`;}).join('')}<td></td></tr>`;
+  const avgRow=`<tr style="background:#f5f5f5;font-weight:800"><td>Average</td>${TOPICS.map(t=>{const avg=counts[t.key]?(sums[t.key]/counts[t.key]).toFixed(1):'—';return `<td style="text-align:center;color:${sc(Math.round(sums[t.key]/counts[t.key]))}">${avg}</td>`;}).join('')}<td></td></tr>`;
   const today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
   const rangeLabel=currentRange===0?'All time':currentRange===14?'Last 2 weeks':'Last month';
   win.document.write(`<!DOCTYPE html><html><head><title>Check-in Report</title>
-  <style>body{font-family:Arial,sans-serif;padding:36px;color:#222}h1{font-size:1.3rem;margin-bottom:3px}
-  .sub{color:#666;font-size:0.88rem;margin-bottom:8px}.scale{font-size:0.78rem;color:#888;margin-bottom:22px}
-  table{width:100%;border-collapse:collapse;font-size:0.9rem}th{background:#222;color:white;padding:9px 12px;text-align:left}
-  th:not(:first-child){text-align:center}td{padding:9px 12px;border-bottom:1px solid #eee}
-  .note{margin-top:26px;font-size:0.75rem;color:#aaa;border-top:1px solid #eee;padding-top:14px}</style>
-  </head><body>
+  <style>body{font-family:Arial,sans-serif;padding:32px;color:#222;font-size:14px}
+  h1{font-size:1.25rem;margin-bottom:2px}.sub{color:#666;font-size:0.84rem;margin-bottom:6px}
+  .scale{font-size:0.75rem;color:#888;margin-bottom:18px}
+  table{width:100%;border-collapse:collapse}th{background:#222;color:white;padding:8px 10px;text-align:left;font-size:0.82rem}
+  th:not(:first-child){text-align:center}td{padding:8px 10px;border-bottom:1px solid #eee;vertical-align:top}
+  .note{margin-top:22px;font-size:0.72rem;color:#aaa;border-top:1px solid #eee;padding-top:12px}
+  </style></head><body>
   <h1>Daily Check-in Report</h1><div class="sub">Generated ${today} · ${rangeLabel}</div>
   <div class="scale">Scale: 1 = Terrible · 10 = Amazing</div>
   <table><thead><tr><th>Date</th>${TOPICS.map(t=>`<th>${t.label}</th>`).join('')}<th>Notes</th></tr></thead>
@@ -461,80 +814,77 @@ function downloadPDF(){
   win.document.close();setTimeout(()=>win.print(),400);
 }
 
-// ── PAST DAY MODAL ────────────────────────────
-let selectedPastKey=null;
-function openPastModal(){buildDayPicker();document.getElementById('past-modal').classList.add('open');}
+// ── PAST DAY MODAL ────────────────────────────────────────
+let selKey=null;
+function openPastModal(){if(parentMode)return;buildDayPicker();document.getElementById('past-modal').classList.add('open');}
 function closePastModal(e){
   if(e&&e.target!==document.getElementById('past-modal'))return;
   document.getElementById('past-modal').classList.remove('open');
-  selectedPastKey=null;document.getElementById('past-form').innerHTML='';
+  selKey=null;document.getElementById('past-form').innerHTML='';
 }
 function buildDayPicker(){
-  const data=loadData(),now=new Date();let html='';
+  const data=load(),now=new Date();let html='';
   for(let i=6;i>=1;i--){
     const d=new Date(now);d.setDate(d.getDate()-i);const k=fmtKey(d);const done=!!data[k];
-    html+=`<div class="day-pill ${done?'done':''}" id="dp-${k}" onclick="selectPastDay('${k}')">
+    html+=`<div class="day-pill ${done?'done':''}" id="dp-${k}" onclick="selDay('${k}')">
       <span class="dp-name">${DAYS[d.getDay()]}</span><span class="dp-num">${d.getDate()}</span>
       <span class="dp-dot" style="background:${done?'#2ecc71':'transparent'}"></span></div>`;
   }
   document.getElementById('day-picker').innerHTML=html;
 }
-function selectPastDay(key){
+function selDay(key){
   document.querySelectorAll('.day-pill').forEach(el=>el.classList.remove('selected'));
-  document.getElementById(`dp-${key}`)?.classList.add('selected');
-  selectedPastKey=key;
-  const data=loadData(),ex=data[key]||{},d=new Date(key+'T12:00:00');
+  document.getElementById(`dp-${key}`)?.classList.add('selected');selKey=key;
+  const data=load(),ex=data[key]||{},d=new Date(key+'T12:00:00');
   const dayStr=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
-  let html=`<div style="border-top:1px solid #2a2a40;padding-top:16px;margin-top:4px">
-    <div style="font-size:0.88rem;font-weight:800;margin-bottom:14px;color:var(--soft)">${dayStr}</div>`;
+  let html=`<div style="border-top:1px solid #2a2a40;padding-top:14px;margin-top:4px">
+    <div style="font-size:0.86rem;font-weight:800;margin-bottom:12px;color:var(--soft)">${dayStr}</div>`;
   TOPICS.forEach(t=>{
     const val=ex[t.key]||5;
-    html+=`<div style="margin-bottom:14px">
-      <div style="font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:${t.color};margin-bottom:7px">${t.label}</div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
-        <span style="font-size:1.5rem;transition:font-size 0.15s,opacity 0.15s" id="pface-${t.key}-left">😢</span>
-        <span style="font-size:1.9rem;font-weight:900;min-width:42px;text-align:center;color:${scoreColor(val)}" id="pval-${t.key}">${val}</span>
-        <span style="font-size:1.5rem;transition:font-size 0.15s,opacity 0.15s" id="pface-${t.key}-right">😊</span>
+    html+=`<div style="margin-bottom:12px">
+      <div style="font-size:0.76rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:${t.color};margin-bottom:6px">${t.label}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <span style="font-size:1.4rem;transition:font-size 0.15s,opacity 0.15s" id="pface-${t.key}-left">😢</span>
+        <span style="font-size:1.8rem;font-weight:900;min-width:40px;text-align:center;color:${sc(val)}" id="pval-${t.key}">${val}</span>
+        <span style="font-size:1.4rem;transition:font-size 0.15s,opacity 0.15s" id="pface-${t.key}-right">😊</span>
       </div>
-      <input type="range" min="1" max="10" value="${val}" id="pslider-${t.key}" oninput="updatePastSlider('${t.key}',this.value)">
+      <input type="range" min="1" max="10" value="${val}" id="pslider-${t.key}" oninput="updSlider('${t.key}',this.value,'p')">
       <div class="scale-labels"><span>1 · Terrible</span><span>10 · Amazing</span></div>
     </div>`;
   });
-  html+=`<div style="margin-bottom:18px">
-    <div style="font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#a78bfa;margin-bottom:7px">Notes</div>
-    <textarea id="past-notes" class="notes-textarea" style="min-height:80px"
-      placeholder="Did anything happen since your last check-in that you would like to discuss with your therapist at your next session?">${ex.notes||''}</textarea>
+  html+=`
+  <div class="notes-card good" style="margin-bottom:8px">
+    <div class="notes-label" style="color:var(--good)">🌟 Something good</div>
+    <textarea class="notes-textarea" id="past-good" placeholder="Name at least one good thing...">${esc(ex.good||'')}</textarea>
+  </div>
+  <div class="notes-card bad" style="margin-bottom:16px">
+    <div class="notes-label" style="color:#e87070">💭 Something difficult</div>
+    <textarea class="notes-textarea" id="past-bad" placeholder="Anything difficult since last check-in...">${esc(ex.bad||'')}</textarea>
   </div>
   <button class="submit-btn" style="margin:0" onclick="savePastDay()">Save ${DAYS[d.getDay()]} check-in ✓</button></div>`;
   document.getElementById('past-form').innerHTML=html;
-  TOPICS.forEach(t=>updatePastSlider(t.key,ex[t.key]||5));
-}
-function updatePastSlider(key,v){
-  v=parseInt(v);
-  const ve=document.getElementById(`pval-${key}`),le=document.getElementById(`pface-${key}-left`),re=document.getElementById(`pface-${key}-right`);
-  if(!ve)return;ve.textContent=v;ve.style.color=scoreColor(v);
-  if(v<=5){le.style.opacity='1';le.style.fontSize=`${1.4+(6-v)*0.1}rem`;re.style.opacity='0.3';re.style.fontSize='1.4rem';}
-  else{re.style.opacity='1';re.style.fontSize=`${1.4+(v-5)*0.1}rem`;le.style.opacity='0.3';le.style.fontSize='1.4rem';}
+  TOPICS.forEach(t=>updSlider(t.key,ex[t.key]||5,'p'));
 }
 function savePastDay(){
-  if(!selectedPastKey)return;
-  const entry={date:selectedPastKey,ts:Date.now()};
+  if(!selKey)return;
+  const entry={date:selKey,ts:Date.now()};
   TOPICS.forEach(t=>{entry[t.key]=parseInt(document.getElementById(`pslider-${t.key}`).value);});
-  entry.notes=(document.getElementById('past-notes')?.value||'').trim();
-  const d=loadData();d[selectedPastKey]=entry;saveData(d);
-  const pill=document.getElementById(`dp-${selectedPastKey}`);
+  entry.good=(document.getElementById('past-good')?.value||'').trim();
+  entry.bad =(document.getElementById('past-bad')?.value||'').trim();
+  const d=load();d[selKey]=entry;save(d);
+  const pill=document.getElementById(`dp-${selKey}`);
   if(pill){pill.classList.add('done');const dot=pill.querySelector('.dp-dot');if(dot)dot.style.background='#2ecc71';}
   launchConfetti();showToast('Saved! ✓');
-  document.getElementById('past-form').innerHTML='';selectedPastKey=null;
+  document.getElementById('past-form').innerHTML='';selKey=null;
   document.querySelectorAll('.day-pill').forEach(el=>el.classList.remove('selected'));
   setTimeout(()=>{document.getElementById('past-modal').classList.remove('open');buildHistory();},800);
 }
 
-// ── RESET ────────────────────────────────────
+// ── RESET ─────────────────────────────────────────────────
 function resetAll(){
   const btn=document.querySelector('.reset-btn');
   if(btn&&btn.dataset.confirming==='true'){
-    localStorage.removeItem(STORAGE_KEY);buildForm();buildHistory();showToast('All data cleared');
+    localStorage.removeItem(SK);buildForm();buildHistory();showToast('All data cleared');
     btn.textContent='Clear ALL data permanently';btn.dataset.confirming='false';btn.style.borderColor='';btn.style.color='';
   }else if(btn){
     btn.textContent='Tap again to confirm — cannot be undone';btn.dataset.confirming='true';
@@ -543,7 +893,7 @@ function resetAll(){
   }
 }
 
-// ── NAV ──────────────────────────────────────
+// ── NAV ───────────────────────────────────────────────────
 function showScreen(name){
   ['today','history','settings'].forEach(s=>{
     document.getElementById(`screen-${s}`).classList.toggle('active',s===name);
@@ -552,22 +902,29 @@ function showScreen(name){
   if(name==='history')buildHistory();
 }
 
-// ── TOAST ────────────────────────────────────
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
-
-// ── CONFETTI ─────────────────────────────────
+// ── TOAST & CONFETTI ──────────────────────────────────────
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
 function launchConfetti(){
-  const wrap=document.getElementById('confetti'),colors=['#e94560','#f39c12','#3498db','#2ecc71','#9b59b6','#e67e22'];
+  const wrap=document.getElementById('confetti'),cols=['#e94560','#f39c12','#3498db','#2ecc71','#9b59b6','#e67e22'];
   wrap.innerHTML='';
-  for(let i=0;i<60;i++){const p=document.createElement('div');p.className='confetti-piece';
-    p.style.cssText=`left:${Math.random()*100}%;top:-10px;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;animation-delay:${Math.random()*0.5}s;animation-duration:${0.9+Math.random()*0.6}s`;
+  for(let i=0;i<55;i++){const p=document.createElement('div');p.className='confetti-piece';
+    p.style.cssText=`left:${Math.random()*100}%;top:-10px;background:${cols[Math.floor(Math.random()*cols.length)]};width:${5+Math.random()*7}px;height:${5+Math.random()*7}px;animation-delay:${Math.random()*0.5}s;animation-duration:${0.9+Math.random()*0.6}s`;
     wrap.appendChild(p);}
   setTimeout(()=>wrap.innerHTML='',2000);
 }
 
-// ── INIT ─────────────────────────────────────
+// ── INIT ──────────────────────────────────────────────────
 const _n=new Date();
 document.getElementById('date-badge').textContent=_n.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+
+// Check for ?gist= param (Mum tapping the link from WhatsApp)
+const _params=new URLSearchParams(location.search);
+const _gistParam=_params.get('gist');
+if(_gistParam){
+  loadFromGist(_gistParam);
+}else{
+  detectParentMode();
+}
 buildForm();
 </script>
 </body>
