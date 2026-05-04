@@ -528,7 +528,13 @@ function buildForm(){
     <textarea class="notes-textarea" id="notes-bad" placeholder="Optional — leave blank if nothing to add..."></textarea>
   </div>`;
   area.innerHTML=html;
-  TOPICS.forEach(t=>updSlider(t.key,5,''));
+  requestAnimationFrame(()=>{
+    TOPICS.forEach(t=>{
+      const el=document.getElementById(`slider-${t.key}`);
+      if(el){el.value=5;}
+      updSlider(t.key,5,'');
+    });
+  });
 }
 
 function updSlider(key,v,pre){
@@ -538,8 +544,16 @@ function updSlider(key,v,pre){
   const re=document.getElementById(`${pre}face-${key}-right`);
   if(!ve)return;
   ve.textContent=v;ve.style.color=sc(v);
-  if(v<=5){le.style.opacity='1';le.style.fontSize=`${1.6+(6-v)*0.1}rem`;re.style.opacity='0.3';re.style.fontSize='1.5rem';}
-  else{re.style.opacity='1';re.style.fontSize=`${1.6+(v-5)*0.1}rem`;le.style.opacity='0.3';le.style.fontSize='1.5rem';}
+  if(v===5){
+    le.style.opacity='0.4';le.style.fontSize='1.8rem';
+    re.style.opacity='0.4';re.style.fontSize='1.8rem';
+  } else if(v<5){
+    le.style.opacity='1';le.style.fontSize=`${1.6+(6-v)*0.1}rem`;
+    re.style.opacity='0.3';re.style.fontSize='1.5rem';
+  } else {
+    re.style.opacity='1';re.style.fontSize=`${1.6+(v-5)*0.1}rem`;
+    le.style.opacity='0.3';le.style.fontSize='1.5rem';
+  }
 }
 
 function showRedoConfirm(){document.getElementById('redo-confirm').style.display='none';document.getElementById('redo-sure').style.display='block';}
@@ -670,19 +684,25 @@ function drawTrendChart(allKeys,data){
     pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,2.5,0,Math.PI*2);ctx.fillStyle=t.color;ctx.fill();});
   });
 
-  // Overall trend line (linear regression across average of active topics)
-  const avgVals=allKeys.map(k=>at.reduce((s,t)=>s+data[k][t.key],0)/at.length);
-  const n=avgVals.length;
-  const sumX=allKeys.reduce((_,__,i)=>_+i,0);
-  const sumY=avgVals.reduce((a,b)=>a+b,0);
-  const sumXY=avgVals.reduce((s,v,i)=>s+i*v,0);
-  const sumX2=allKeys.reduce((s,_,i)=>s+i*i,0);
-  const slope=(n*sumXY-sumX*sumY)/(n*sumX2-sumX*sumX);
-  const intercept=(sumY-slope*sumX)/n;
-  const tx0=P.l,ty0=P.t+cH-((intercept-1)/9)*cH;
-  const tx1=P.l+(n-1)*xStep,ty1=P.t+cH-((intercept+slope*(n-1)-1)/9)*cH;
-  ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,0.6)';ctx.lineWidth=1.5;
-  ctx.setLineDash([4,4]);ctx.moveTo(tx0,ty0);ctx.lineTo(tx1,ty1);ctx.stroke();ctx.setLineDash([]);
+  // Overall trend line — only use non-excluded data points
+  const validForTrend = allKeys.filter(k => at.every(t => !isExcluded(k, t.key)));
+  if(validForTrend.length >= 2){
+    const avgVals=validForTrend.map(k=>at.reduce((s,t)=>s+data[k][t.key],0)/at.length);
+    const n=avgVals.length;
+    const sumX=avgVals.reduce((_,__,i)=>_+i,0);
+    const sumY=avgVals.reduce((a,b)=>a+b,0);
+    const sumXY=avgVals.reduce((s,v,i)=>s+i*v,0);
+    const sumX2=avgVals.reduce((s,_,i)=>s+i*i,0);
+    const slope=(n*sumXY-sumX*sumY)/(n*sumX2-sumX*sumX);
+    const intercept=(sumY-slope*sumX)/n;
+    // Map back to x positions on the full chart
+    const firstX=P.l+allKeys.indexOf(validForTrend[0])*xStep;
+    const lastX=P.l+allKeys.indexOf(validForTrend[validForTrend.length-1])*xStep;
+    const ty0=P.t+cH-((intercept-1)/9)*cH;
+    const ty1=P.t+cH-((intercept+slope*(n-1)-1)/9)*cH;
+    ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,0.6)';ctx.lineWidth=1.5;
+    ctx.setLineDash([4,4]);ctx.moveTo(firstX,ty0);ctx.lineTo(lastX,ty1);ctx.stroke();ctx.setLineDash([]);
+  }
 
   // X labels
   const every=Math.ceil(allKeys.length/5);
