@@ -61,6 +61,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;heigh
   border-radius:50%;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.4);cursor:grab}
 input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
 input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:white;border:none}
+input[type=range]::-moz-range-track{height:8px;border-radius:4px}
 .scale-labels{display:flex;justify-content:space-between;font-size:0.66rem;color:var(--soft);margin-top:4px;font-weight:700}
 .notes-card{border-radius:var(--radius);padding:16px 16px 14px;width:100%;margin-bottom:10px}
 .notes-card.good{background:#0d2018;border:1px solid #1a4a2a}
@@ -251,7 +252,7 @@ canvas{width:100%!important;display:block}
       </div>
     </div>
     <canvas id="chart-dow" height="150"></canvas>
-    <div class="chart-note" id="school-weekend-note">School scores on Sat &amp; Sun are excluded from averages</div>
+    <div class="chart-note" id="school-weekend-note">School scores on weekends, holidays &amp; half terms are excluded from averages</div>
   </div>
 
   <!-- Heatmap -->
@@ -362,12 +363,92 @@ function sc(v){
   return `rgb(${Math.round(231+(46-231)*t)},${Math.round(76+(204-76)*t)},${Math.round(60+(113-60)*t)})`;
 }
 
-// Weekend school exclusion: returns true if this key should be excluded for a given topic
+// ── GUERNSEY NON-SCHOOL DAYS ─────────────────────────────
+// All dates when school is not in session (holidays, half terms, bank holidays)
+// Source: gov.gg/termdates and gov.gg/holidaydates — covers through July 2029
+// Weekends are handled separately via isWeekend()
+
+function isWeekend(k){const d=new Date(k+'T12:00:00').getDay();return d===0||d===6;}
+
+// Generate all dates in a range (inclusive)
+function dateRange(from,to){
+  const dates=new Set();
+  const d=new Date(from+'T12:00:00');
+  const end=new Date(to+'T12:00:00');
+  while(d<=end){dates.add(fmtKey(d));d.setDate(d.getDate()+1);}
+  return dates;
+}
+
+// Build the full set of Guernsey non-school days
+function buildNonSchoolDays(){
+  const days=new Set();
+
+  // ── PUBLIC HOLIDAYS ──
+  // 2025
+  ['2025-01-01','2025-04-18','2025-04-21','2025-05-05','2025-05-09',
+   '2025-05-26','2025-08-25','2025-12-25','2025-12-26'].forEach(d=>days.add(d));
+  // 2026
+  ['2026-01-01','2026-04-03','2026-04-06','2026-05-04','2026-05-09',
+   '2026-05-25','2026-08-31','2026-12-25','2026-12-28'].forEach(d=>days.add(d));
+  // 2027 (estimated from ordinance rules)
+  ['2027-01-01','2027-03-26','2027-03-29','2027-05-03','2027-05-10',
+   '2027-05-31','2027-08-30','2027-12-27','2027-12-28'].forEach(d=>days.add(d));
+  // 2028
+  ['2028-01-03','2028-04-14','2028-04-17','2028-05-01','2028-05-09',
+   '2028-05-29','2028-08-28','2028-12-25','2028-12-26'].forEach(d=>days.add(d));
+
+  // ── SCHOOL HOLIDAYS (from gov.gg/termdates) ──
+
+  // 2024-2025 (current year — approximate, app started mid-year)
+  dateRange('2025-04-14','2025-04-25').forEach(d=>days.add(d)); // Easter break
+  dateRange('2025-05-26','2025-05-30').forEach(d=>days.add(d)); // May half term
+  dateRange('2025-07-11','2025-08-31').forEach(d=>days.add(d)); // Summer 2025
+
+  // 2025-2026
+  dateRange('2025-10-27','2025-10-31').forEach(d=>days.add(d)); // Autumn half term
+  dateRange('2025-12-20','2026-01-05').forEach(d=>days.add(d)); // Christmas break
+  dateRange('2026-02-16','2026-02-20').forEach(d=>days.add(d)); // Spring half term
+  dateRange('2026-03-28','2026-04-13').forEach(d=>days.add(d)); // Easter break
+  dateRange('2026-05-25','2026-05-29').forEach(d=>days.add(d)); // May half term
+  dateRange('2026-07-18','2026-08-31').forEach(d=>days.add(d)); // Summer 2026
+
+  // 2026-2027
+  dateRange('2026-10-26','2026-10-30').forEach(d=>days.add(d));
+  dateRange('2026-12-19','2027-01-04').forEach(d=>days.add(d));
+  dateRange('2027-02-08','2027-02-12').forEach(d=>days.add(d));
+  dateRange('2027-03-26','2027-04-12').forEach(d=>days.add(d));
+  dateRange('2027-05-31','2027-06-04').forEach(d=>days.add(d));
+  dateRange('2027-07-23','2027-08-31').forEach(d=>days.add(d));
+
+  // 2027-2028
+  dateRange('2027-10-25','2027-10-29').forEach(d=>days.add(d));
+  dateRange('2027-12-18','2028-01-04').forEach(d=>days.add(d));
+  dateRange('2028-02-21','2028-02-25').forEach(d=>days.add(d));
+  dateRange('2028-04-08','2028-04-25').forEach(d=>days.add(d));
+  dateRange('2028-05-29','2028-06-02').forEach(d=>days.add(d));
+  dateRange('2028-07-22','2028-08-31').forEach(d=>days.add(d));
+
+  // 2028-2029
+  dateRange('2028-10-23','2028-10-27').forEach(d=>days.add(d));
+  dateRange('2028-12-16','2029-01-07').forEach(d=>days.add(d));
+  dateRange('2029-02-19','2029-02-23').forEach(d=>days.add(d));
+  dateRange('2029-03-30','2029-04-16').forEach(d=>days.add(d));
+  dateRange('2029-05-28','2029-06-01').forEach(d=>days.add(d));
+  dateRange('2029-07-21','2029-08-31').forEach(d=>days.add(d));
+
+  return days;
+}
+
+// Build once at startup
+const NON_SCHOOL_DAYS = buildNonSchoolDays();
+
+// Returns true if School metric should be excluded for this date key
 function isExcluded(k, topicKey){
   if(topicKey!=='school') return false;
-  const dow=new Date(k+'T12:00:00').getDay();
-  return dow===0||dow===6; // Sunday or Saturday
+  return isWeekend(k) || NON_SCHOOL_DAYS.has(k);
 }
+
+function isSchoolExcluded(k){ return isExcluded(k,'school'); }
 
 function activeTopics(){
   return topicFilter==='all'?TOPICS:TOPICS.filter(t=>t.key===topicFilter);
@@ -427,7 +508,7 @@ function buildForm(){
         <span class="value-display" id="val-${t.key}" style="color:${sc(5)}">5</span>
         <span class="face" id="face-${t.key}-right">😊</span>
       </div>
-      <div style="padding:3px 0">
+      <div style="padding:4px 0">
         <input type="range" min="1" max="10" value="5" id="slider-${t.key}" oninput="updSlider('${t.key}',this.value,'')">
       </div>
       <div class="scale-labels"><span>1 · Terrible</span><span>10 · Amazing</span></div>
@@ -502,7 +583,15 @@ function buildHistoryTable(){
   [...keys].reverse().forEach(k=>{
     const e=data[k],d=new Date(k+'T12:00:00');
     html+=`<tr><td>${DAYS[d.getDay()]} ${d.getDate()}/${d.getMonth()+1}</td>`;
-    TOPICS.forEach(t=>{const v=e[t.key];html+=`<td><span class="score-chip" style="background:${sc(v)}">${v}</span></td>`;sums[t.key]+=v;counts[t.key]++;});
+    TOPICS.forEach(t=>{
+      const v=e[t.key];
+      const weekend=isExcluded(k,t.key);
+      if(!weekend){sums[t.key]+=v;counts[t.key]++;}
+      const chip=weekend
+        ? `<span class="score-chip" style="background:#1a4a7a;border:2px solid #3498db;color:#a8d4ff" title="Non-school day — excluded from average">${v}</span>`
+        : `<span class="score-chip" style="background:${sc(v)}">${v}</span>`;
+      html+=`<td>${chip}</td>`;
+    });
     html+=`</tr>`;
     const hasNotes=e.good||e.bad||e.notes;
     if(hasNotes){
@@ -821,7 +910,7 @@ function selDay(key){
         <span style="font-size:1.8rem;font-weight:900;min-width:40px;text-align:center;color:${sc(val)}" id="pval-${t.key}">${val}</span>
         <span style="font-size:1.4rem;transition:font-size 0.15s,opacity 0.15s" id="pface-${t.key}-right">😊</span>
       </div>
-      <input type="range" min="1" max="10" value="${val}" id="pslider-${t.key}" oninput="updSlider('${t.key}',this.value,'p')">
+      <input type="range" min="1" max="10" value="${val}" id="pslider-${t.key}" style="display:block;margin:0 13px;width:calc(100% - 26px)" oninput="updSlider('${t.key}',this.value,'p')">
       <div class="scale-labels"><span>1 · Terrible</span><span>10 · Amazing</span></div>
     </div>`;
   });
