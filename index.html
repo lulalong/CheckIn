@@ -21,58 +21,47 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);
   min-height:100dvh;display:flex;flex-direction:column;align-items:center;
   padding:0 0 60px;overflow-x:hidden}
 
-.header{width:100%;padding:16px 18px 12px;display:flex;justify-content:space-between;
+.header{width:100%;padding:14px 14px 10px;display:flex;justify-content:space-between;
   align-items:center;position:sticky;top:0;background:var(--bg);z-index:10;
   border-bottom:1px solid #1e1e30}
-.logo{font-size:1.05rem;font-weight:900;letter-spacing:-0.5px}
+.logo{font-size:1rem;font-weight:900;letter-spacing:-0.5px}
 .logo span{color:var(--accent)}
-.nav-btn{background:var(--card);border:none;color:var(--soft);padding:7px 12px;
-  border-radius:30px;font-family:'Nunito',sans-serif;font-size:0.76rem;font-weight:700;
+.nav-btn{background:var(--card);border:none;color:var(--soft);padding:6px 10px;
+  border-radius:30px;font-family:'Nunito',sans-serif;font-size:0.72rem;font-weight:700;
   cursor:pointer;transition:all 0.2s}
 .nav-btn.active{background:var(--accent);color:white}
-.nav-btn.parent-mode{background:#7c3aed;color:white}
+
+.mode-banner{width:100%;max-width:500px;padding:9px 16px;display:none;
+  background:#7c3aed22;border-bottom:1px solid #7c3aed44;
+  font-size:0.76rem;font-weight:700;color:#a78bfa;text-align:center}
+.mode-banner.visible{display:block}
 
 .screen{width:100%;max-width:500px;padding:0 16px;display:none;flex-direction:column;align-items:center}
 .screen.active{display:flex}
 
-/* MODE BANNER */
-.mode-banner{width:100%;max-width:500px;padding:10px 16px;display:none;
-  background:#7c3aed22;border-bottom:1px solid #7c3aed44;
-  font-size:0.78rem;font-weight:700;color:#a78bfa;text-align:center}
-.mode-banner.visible{display:block}
-
 /* TODAY */
-.date-badge{background:var(--card);border-radius:30px;padding:6px 16px;
-  font-size:0.8rem;font-weight:700;color:var(--soft);margin-bottom:8px;margin-top:16px}
+.date-badge{background:var(--card);border-radius:30px;padding:6px 16px;font-size:0.8rem;
+  font-weight:700;color:var(--soft);margin-bottom:8px;margin-top:16px}
 .greeting{font-size:1.6rem;font-weight:900;text-align:center;line-height:1.2;margin-bottom:4px}
 .greeting span{color:var(--accent)}
 .sub{font-size:0.85rem;color:var(--soft);text-align:center;margin-bottom:20px}
-
-.already-done{background:var(--card);border-radius:var(--radius);padding:26px 22px;
-  text-align:center;width:100%}
+.already-done{background:var(--card);border-radius:var(--radius);padding:26px 22px;text-align:center;width:100%}
 .already-done .tick{font-size:2.8rem;margin-bottom:8px}
 .already-done h2{font-size:1.15rem;font-weight:800;margin-bottom:5px}
 .already-done p{color:var(--soft);font-size:0.86rem;line-height:1.5}
-
-.topic-card{background:var(--card);border-radius:var(--radius);padding:18px 16px 14px;
-  width:100%;margin-bottom:10px}
+.topic-card{background:var(--card);border-radius:var(--radius);padding:18px 16px 14px;width:100%;margin-bottom:10px}
 .topic-label{font-size:0.9rem;font-weight:800;letter-spacing:0.5px;margin-bottom:2px;text-transform:uppercase}
 .topic-question{font-size:0.78rem;color:var(--soft);margin-bottom:14px}
 .face-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .face{font-size:1.8rem;line-height:1;transition:font-size 0.15s,opacity 0.15s}
-.value-display{font-size:2.1rem;font-weight:900;min-width:48px;text-align:center;
-  line-height:1;transition:color 0.3s}
-
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;
-  border-radius:4px;outline:none;cursor:pointer;
-  background:linear-gradient(to right,#e74c3c 0%,#2ecc71 100%)}
+.value-display{font-size:2.1rem;font-weight:900;min-width:48px;text-align:center;line-height:1;transition:color 0.3s}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:4px;
+  outline:none;cursor:pointer;background:linear-gradient(to right,#e74c3c 0%,#2ecc71 100%)}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;
   border-radius:50%;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.4);cursor:grab}
 input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
 input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:white;border:none}
-.scale-labels{display:flex;justify-content:space-between;font-size:0.66rem;
-  color:var(--soft);margin-top:4px;font-weight:700}
-
+.scale-labels{display:flex;justify-content:space-between;font-size:0.66rem;color:var(--soft);margin-top:4px;font-weight:700}
 .notes-card{border-radius:var(--radius);padding:16px 16px 14px;width:100%;margin-bottom:10px}
 .notes-card.good{background:#0d2018;border:1px solid #1a4a2a}
 .notes-card.bad{background:#1f0d0d;border:1px solid #4a1a1a}
@@ -80,50 +69,46 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .notes-prompt{font-size:0.75rem;color:var(--soft);margin-bottom:8px;line-height:1.4}
 .notes-textarea{width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.07);
   border-radius:10px;color:var(--text);font-family:'Nunito',sans-serif;font-size:0.88rem;
-  font-weight:600;line-height:1.5;padding:10px 12px;resize:none;min-height:72px;
-  outline:none;transition:border-color 0.2s}
+  font-weight:600;line-height:1.5;padding:10px 12px;resize:none;min-height:72px;outline:none;transition:border-color 0.2s}
 .notes-textarea::placeholder{color:#3a3a5a}
 .notes-card.good .notes-textarea:focus{border-color:var(--good)}
 .notes-card.bad  .notes-textarea:focus{border-color:var(--bad)}
-
 .submit-btn{width:100%;padding:16px;background:var(--accent);color:white;border:none;
   border-radius:var(--radius);font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;
   cursor:pointer;transition:transform 0.15s,opacity 0.15s;margin-top:4px}
 .submit-btn:active{transform:scale(0.97);opacity:0.9}
 
-/* HISTORY */
-.section-title{font-size:1.35rem;font-weight:900;text-align:center;margin-bottom:4px;margin-top:16px}
-.section-sub{font-size:0.82rem;color:var(--soft);text-align:center;margin-bottom:16px}
-
-.chart-card{background:var(--card);border-radius:var(--radius);padding:16px 14px 12px;
-  width:100%;margin-bottom:12px}
-.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.chart-title{font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;color:var(--soft)}
-.chart-legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.ldot{display:flex;align-items:center;gap:3px;font-size:0.67rem;font-weight:700;color:var(--soft)}
-.ldot::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--c);display:block}
-canvas{width:100%!important;display:block}
-
+/* SHARED SECTION */
+.section-title{font-size:1.3rem;font-weight:900;text-align:center;margin-bottom:4px;margin-top:16px}
+.section-sub{font-size:0.8rem;color:var(--soft);text-align:center;margin-bottom:16px}
 .tab-row{display:flex;gap:5px;width:100%;margin-bottom:12px}
 .tab-btn{flex:1;padding:7px;background:var(--card);border:none;border-radius:9px;
-  font-family:'Nunito',sans-serif;font-size:0.74rem;font-weight:700;color:var(--soft);
-  cursor:pointer;transition:all 0.15s}
+  font-family:'Nunito',sans-serif;font-size:0.74rem;font-weight:700;color:var(--soft);cursor:pointer;transition:all 0.15s}
 .tab-btn.active{background:var(--accent);color:white}
 
+/* HISTORY TABLE */
 .history-table{width:100%;border-collapse:separate;border-spacing:0 4px;font-size:0.8rem}
 .history-table th{font-size:0.65rem;font-weight:800;letter-spacing:0.7px;text-transform:uppercase;
   color:var(--soft);padding:0 7px 6px;text-align:center}
 .history-table th:first-child{text-align:left}
 .history-table td{background:var(--card);padding:10px 7px;text-align:center;font-weight:700}
-.history-table td:first-child{border-radius:10px 0 0 10px;text-align:left;font-size:0.75rem;
-  color:var(--soft);padding-left:11px;font-weight:800}
+.history-table td:first-child{border-radius:10px 0 0 10px;text-align:left;font-size:0.75rem;color:var(--soft);padding-left:11px;font-weight:800}
 .history-table td:last-child{border-radius:0 10px 10px 0}
-.score-chip{display:inline-block;width:28px;height:28px;border-radius:50%;line-height:28px;
-  font-size:0.78rem;font-weight:900;color:white}
-.notes-row td{background:#0d0d22!important;font-size:0.74rem;line-height:1.5;
-  border-radius:0 0 10px 10px!important;padding:6px 11px 9px!important}
+.score-chip{display:inline-block;width:28px;height:28px;border-radius:50%;line-height:28px;font-size:0.78rem;font-weight:900;color:white}
+.notes-row td{background:#0d0d22!important;font-size:0.74rem;line-height:1.5;border-radius:0 0 10px 10px!important;padding:6px 11px 9px!important}
 .avg-row td{background:var(--card2)!important}
 
+/* CHARTS */
+.chart-card{background:var(--card);border-radius:var(--radius);padding:16px 14px 12px;width:100%;margin-bottom:12px}
+.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.chart-title{font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;color:var(--soft)}
+.chart-legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.ldot{display:flex;align-items:center;gap:3px;font-size:0.67rem;font-weight:700;color:var(--soft)}
+.ldot::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--c);display:block}
+canvas{width:100%!important;display:block}
+.chart-note{font-size:0.68rem;color:#44446a;margin-top:6px;text-align:center}
+
+/* ACTION BUTTONS */
 .action-row{display:flex;gap:8px;width:100%;margin-top:10px}
 .action-btn{flex:1;padding:12px;border:none;border-radius:var(--radius);
   font-family:'Nunito',sans-serif;font-size:0.84rem;font-weight:800;cursor:pointer;transition:transform 0.15s}
@@ -131,31 +116,28 @@ canvas{width:100%!important;display:block}
 .action-btn.primary{background:var(--accent);color:white}
 .action-btn.secondary{background:var(--card);color:var(--text)}
 .action-btn.green{background:#25D366;color:white}
-.action-btn.purple{background:#7c3aed;color:white}
 .action-btn.wide{flex:none;width:100%;margin-top:8px}
 
 /* SETTINGS */
 .settings-card{background:var(--card);border-radius:var(--radius);padding:16px;width:100%;margin-bottom:10px}
-.settings-card h3{font-size:0.76rem;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;
-  color:var(--soft);margin-bottom:9px}
+.settings-card h3{font-size:0.76rem;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;color:var(--soft);margin-bottom:9px}
 .settings-input{width:100%;background:#0a0a14;border:1px solid #2a2a40;border-radius:10px;
   color:var(--text);font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:600;
   padding:10px 12px;outline:none;margin-bottom:8px;transition:border-color 0.2s}
 .settings-input:focus{border-color:#7c3aed}
-.settings-btn{width:100%;padding:11px;border-radius:10px;border:none;
-  background:#7c3aed;color:white;font-family:'Nunito',sans-serif;
-  font-size:0.85rem;font-weight:800;cursor:pointer;margin-bottom:6px}
+.settings-btn{width:100%;padding:11px;border-radius:10px;border:none;background:#7c3aed;color:white;
+  font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:800;cursor:pointer;margin-bottom:6px}
 .settings-btn.secondary{background:var(--card2);color:var(--soft)}
-.reset-btn{width:100%;padding:12px;border-radius:11px;border:2px solid #444;
-  background:transparent;color:#888;font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer}
+.settings-btn.green{background:#25D366}
+.reset-btn{width:100%;padding:12px;border-radius:11px;border:2px solid #444;background:transparent;
+  color:#888;font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer}
 .status-line{font-size:0.76rem;color:var(--soft);margin-top:4px;line-height:1.4;min-height:16px}
 .status-line.ok{color:#2ecc71}
 .status-line.err{color:#e94560}
 
 /* MODAL */
 .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:200;
-  display:flex;align-items:flex-end;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity 0.25s}
+  display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s}
 .modal-backdrop.open{opacity:1;pointer-events:all}
 .modal{background:#1a1a2e;border-radius:22px 22px 0 0;padding:18px 16px 44px;
   width:100%;max-width:500px;transform:translateY(100%);
@@ -180,10 +162,8 @@ canvas{width:100%!important;display:block}
   z-index:300;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
-.confetti-piece{position:absolute;width:9px;height:9px;border-radius:2px;
-  animation:confettiFall 1.2s ease-in forwards}
-@keyframes confettiFall{0%{opacity:1;transform:translateY(-10px) rotate(0deg)}
-  100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
+.confetti-piece{position:absolute;border-radius:2px;animation:confettiFall 1.2s ease-in forwards}
+@keyframes confettiFall{0%{opacity:1;transform:translateY(-10px) rotate(0deg)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
 .empty-state{text-align:center;padding:32px 20px;color:var(--soft)}
 .empty-state .e-icon{font-size:2.6rem;margin-bottom:8px}
 .empty-state p{font-size:0.86rem;line-height:1.5}
@@ -198,9 +178,10 @@ canvas{width:100%!important;display:block}
 
 <div class="header">
   <div class="logo">how are<span>.</span>you</div>
-  <div style="display:flex;gap:5px">
+  <div style="display:flex;gap:4px">
     <button class="nav-btn active" id="btn-today"    onclick="showScreen('today')">Today</button>
     <button class="nav-btn"        id="btn-history"  onclick="showScreen('history')">History</button>
+    <button class="nav-btn"        id="btn-analysis" onclick="showScreen('analysis')">Analysis</button>
     <button class="nav-btn"        id="btn-settings" onclick="showScreen('settings')">⚙</button>
   </div>
 </div>
@@ -217,49 +198,7 @@ canvas{width:100%!important;display:block}
 <!-- HISTORY -->
 <div class="screen" id="screen-history">
   <div class="section-title">History</div>
-  <div class="section-sub" id="history-sub">Trends &amp; patterns</div>
-
-  <div class="tab-row" style="margin-bottom:14px">
-    <button class="tab-btn active" id="tf-all"    onclick="setFilter('all')">All</button>
-    <button class="tab-btn" id="tf-mood"   onclick="setFilter('mood')"   style="border-bottom:2px solid #e94560">Mood</button>
-    <button class="tab-btn" id="tf-school" onclick="setFilter('school')" style="border-bottom:2px solid #f39c12">School</button>
-    <button class="tab-btn" id="tf-home"   onclick="setFilter('home')"   style="border-bottom:2px solid #3498db">Home</button>
-  </div>
-
-  <div class="chart-card">
-    <div class="chart-header">
-      <span class="chart-title">All-time trend</span>
-      <div class="chart-legend">
-        <span class="ldot" style="--c:var(--mood)">Mood</span>
-        <span class="ldot" style="--c:var(--school)">School</span>
-        <span class="ldot" style="--c:var(--home)">Home</span>
-      </div>
-    </div>
-    <canvas id="chart-trend" height="150"></canvas>
-  </div>
-
-  <div class="chart-card">
-    <div class="chart-header">
-      <span class="chart-title">Average by day of week</span>
-      <div class="chart-legend">
-        <span class="ldot" style="--c:var(--mood)">Mood</span>
-        <span class="ldot" style="--c:var(--school)">School</span>
-        <span class="ldot" style="--c:var(--home)">Home</span>
-      </div>
-    </div>
-    <canvas id="chart-dow" height="150"></canvas>
-  </div>
-
-  <div class="chart-card">
-    <div class="chart-header">
-      <span class="chart-title">Weekly pattern heatmap</span>
-      <div class="chart-legend">
-        <span class="ldot" style="--c:#e74c3c">Low</span>
-        <span class="ldot" style="--c:#2ecc71">High</span>
-      </div>
-    </div>
-    <canvas id="chart-heat" height="100"></canvas>
-  </div>
+  <div class="section-sub">Your check-ins, filtered by date range</div>
 
   <div class="tab-row">
     <button class="tab-btn active" id="rt-14" onclick="setRange(14)">2 weeks</button>
@@ -267,12 +206,66 @@ canvas{width:100%!important;display:block}
     <button class="tab-btn"        id="rt-0"  onclick="setRange(0)">All time</button>
   </div>
   <div id="history-table-wrap" style="width:100%"></div>
-
-  <div class="action-row" id="history-actions">
+  <div class="action-row">
     <button class="action-btn green"   onclick="shareWhatsApp()">💬 WhatsApp</button>
     <button class="action-btn primary" onclick="downloadPDF()">📄 PDF</button>
   </div>
   <button class="action-btn secondary wide" id="btn-missed" onclick="openPastModal()">+ Fill in a missed day</button>
+</div>
+
+<!-- ANALYSIS -->
+<div class="screen" id="screen-analysis">
+  <div class="section-title">Analysis</div>
+  <div class="section-sub">Charts &amp; patterns — tap a topic to focus</div>
+
+  <!-- Topic filter -->
+  <div class="tab-row">
+    <button class="tab-btn active" id="tf-all"    onclick="setFilter('all')">All</button>
+    <button class="tab-btn" id="tf-mood"   onclick="setFilter('mood')"   style="border-bottom:2px solid #e94560">Mood</button>
+    <button class="tab-btn" id="tf-school" onclick="setFilter('school')" style="border-bottom:2px solid #f39c12">School</button>
+    <button class="tab-btn" id="tf-home"   onclick="setFilter('home')"   style="border-bottom:2px solid #3498db">Home</button>
+  </div>
+
+  <!-- Trend chart -->
+  <div class="chart-card">
+    <div class="chart-header">
+      <span class="chart-title">All-time trend</span>
+      <div class="chart-legend" id="legend-trend">
+        <span class="ldot" style="--c:var(--mood)">Mood</span>
+        <span class="ldot" style="--c:var(--school)">School</span>
+        <span class="ldot" style="--c:var(--home)">Home</span>
+        <span class="ldot" style="--c:white">Trend</span>
+      </div>
+    </div>
+    <canvas id="chart-trend" height="150"></canvas>
+  </div>
+
+  <!-- Day of week chart -->
+  <div class="chart-card">
+    <div class="chart-header">
+      <span class="chart-title">Average by day of week</span>
+      <div class="chart-legend" id="legend-dow">
+        <span class="ldot" style="--c:var(--mood)">Mood</span>
+        <span class="ldot" style="--c:var(--school)">School</span>
+        <span class="ldot" style="--c:var(--home)">Home</span>
+      </div>
+    </div>
+    <canvas id="chart-dow" height="150"></canvas>
+    <div class="chart-note" id="school-weekend-note">School scores on Sat &amp; Sun are excluded from averages</div>
+  </div>
+
+  <!-- Heatmap -->
+  <div class="chart-card">
+    <div class="chart-header">
+      <span class="chart-title">Weekly heatmap</span>
+      <div class="chart-legend">
+        <span class="ldot" style="--c:#e74c3c">Low</span>
+        <span class="ldot" style="--c:#2ecc71">High</span>
+      </div>
+    </div>
+    <canvas id="chart-heat" height="100"></canvas>
+    <div class="chart-note">Each row = one week (Mon→Sun) · colour = average of selected topics</div>
+  </div>
 </div>
 
 <!-- SETTINGS -->
@@ -280,15 +273,12 @@ canvas{width:100%!important;display:block}
   <div class="section-title" style="margin-bottom:4px">Settings</div>
   <div class="section-sub" style="margin-bottom:16px">Reminders, sync &amp; data</div>
 
-  <!-- GIST SYNC CARD -->
   <div class="settings-card" id="gist-card">
     <h3>📡 Sync with Mum</h3>
     <p style="font-size:0.8rem;color:var(--soft);line-height:1.5;margin-bottom:12px">
-      This lets Mum view your check-ins on her phone without needing yours.
-      You'll need to set this up once — ask Mum to follow the steps below.
+      This lets Mum view your check-ins on her phone. Ask Mum to follow the steps below.
     </p>
-
-    <div id="gist-setup-steps" style="font-size:0.78rem;color:var(--soft);line-height:1.7;margin-bottom:12px;background:#0a0a14;border-radius:10px;padding:12px">
+    <div style="font-size:0.76rem;color:var(--soft);line-height:1.7;margin-bottom:12px;background:#0a0a14;border-radius:10px;padding:12px">
       <strong style="color:var(--text);display:block;margin-bottom:6px">One-time setup (Mum does this):</strong>
       1. Go to <strong style="color:#a78bfa">github.com → Settings → Developer settings → Personal access tokens → Tokens (classic)</strong><br>
       2. Click <strong>Generate new token (classic)</strong><br>
@@ -297,22 +287,19 @@ canvas{width:100%!important;display:block}
       5. Click <strong>Generate token</strong> and copy it<br>
       6. Paste it into the box below and tap Save
     </div>
-
-    <input class="settings-input" type="password" id="gist-token-input"
-      placeholder="Paste GitHub token here (ghp_...)" autocomplete="off">
+    <input class="settings-input" type="password" id="gist-token-input" placeholder="Paste GitHub token here (ghp_...)" autocomplete="off">
     <button class="settings-btn" onclick="saveGistToken()">Save token</button>
     <div class="status-line" id="gist-token-status"></div>
   </div>
 
-  <!-- SYNC BUTTON (shown once token saved) -->
   <div class="settings-card" id="sync-card" style="display:none">
     <h3>📡 Sync with Mum</h3>
     <p style="font-size:0.8rem;color:var(--soft);line-height:1.5;margin-bottom:12px">
-      Data syncs automatically every time you save a check-in. You can also sync manually below.
+      Data syncs automatically every time you save a check-in.
     </p>
     <button class="settings-btn" id="sync-btn" onclick="syncToGist(false)">Sync now</button>
     <div class="status-line" id="sync-status"></div>
-    <button class="settings-btn" style="margin-top:8px;background:#25D366" onclick="shareGistLink()">💬 Send view link to Mum</button>
+    <button class="settings-btn green" style="margin-top:8px" onclick="shareGistLink()">💬 Send view link to Mum</button>
     <button class="settings-btn secondary" style="margin-top:6px" onclick="clearGistToken()">Remove token &amp; disconnect</button>
   </div>
 
@@ -349,21 +336,20 @@ canvas{width:100%!important;display:block}
 </div>
 
 <script>
-// ── CONFIG ───────────────────────────────────────────────
 const TOPICS=[
   {key:'mood',  label:'Mood',  color:'#e94560'},
   {key:'school',label:'School',color:'#f39c12'},
   {key:'home',  label:'Home',  color:'#3498db'},
 ];
-const SK       = 'checkin_all_v2';
-const GIST_TK  = 'checkin_gist_token';
-const GIST_ID  = 'checkin_gist_id';
-const GIST_FILE= 'checkin_data.json';
-const DAYS     = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const DAYS_FULL= ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-let currentRange = 14;
-let topicFilter  = 'all'; // 'all' | 'mood' | 'school' | 'home'
-let parentMode   = false;   // true when viewing Neva's data from Mum's phone
+const SK='checkin_all_v2';
+const GIST_TK='checkin_gist_token';
+const GIST_ID='checkin_gist_id';
+const GIST_FILE='checkin_data.json';
+const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const DAYS_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+let currentRange=14;
+let topicFilter='all';
+let parentMode=false;
 
 // ── STORAGE ──────────────────────────────────────────────
 function load(){try{return JSON.parse(localStorage.getItem(SK))||{};}catch{return {};}}
@@ -371,31 +357,34 @@ function save(d){localStorage.setItem(SK,JSON.stringify(d));}
 function todayKey(){return fmtKey(new Date());}
 function fmtKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 
-// ── COLOUR ───────────────────────────────────────────────
 function sc(v){
   const t=(v-1)/9;
   return `rgb(${Math.round(231+(46-231)*t)},${Math.round(76+(204-76)*t)},${Math.round(60+(113-60)*t)})`;
 }
 
-// ── PARENT MODE INIT ─────────────────────────────────────
-// Mum's phone will have a gist_id stored but no token — that signals parent view
-function detectParentMode(){
-  const token = localStorage.getItem(GIST_TK);
-  const gistId= localStorage.getItem(GIST_ID);
-  // Parent mode: has a gist ID saved, but no write token on this device
-  // OR: user manually tapped "View as parent"
-  if(gistId && !token){
-    enterParentMode();
-  }
-  updateSettingsUI();
+// Weekend school exclusion: returns true if this key should be excluded for a given topic
+function isExcluded(k, topicKey){
+  if(topicKey!=='school') return false;
+  const dow=new Date(k+'T12:00:00').getDay();
+  return dow===0||dow===6; // Sunday or Saturday
 }
 
+function activeTopics(){
+  return topicFilter==='all'?TOPICS:TOPICS.filter(t=>t.key===topicFilter);
+}
+
+// ── PARENT MODE ───────────────────────────────────────────
+function detectParentMode(){
+  const token=localStorage.getItem(GIST_TK);
+  const gistId=localStorage.getItem(GIST_ID);
+  if(gistId&&!token) enterParentMode();
+  updateSettingsUI();
+}
 function enterParentMode(){
-  parentMode = true;
+  parentMode=true;
   document.getElementById('mode-banner').classList.add('visible');
   document.getElementById('submit-btn').style.display='none';
   document.getElementById('btn-missed').style.display='none';
-  // Hide sync card, show load button
   document.getElementById('gist-card').style.display='none';
   document.getElementById('sync-card').style.display='none';
 }
@@ -405,21 +394,15 @@ function buildForm(){
   const key=todayKey(),data=load();
   const area=document.getElementById('form-area');
   const btn=document.getElementById('submit-btn');
-
   if(parentMode){
-    area.innerHTML=`<div class="already-done">
-      <div class="tick">👁</div>
-      <h2>Parent view</h2>
-      <p>You're viewing Neva's data.<br>Check the <strong>History</strong> tab to see her scores and charts.</p>
-    </div>`;
-    btn.style.display='none';
-    return;
+    area.innerHTML=`<div class="already-done"><div class="tick">👁</div><h2>Parent view</h2>
+      <p>You're viewing Neva's data.<br>Check the <strong>History</strong> and <strong>Analysis</strong> tabs.</p></div>`;
+    btn.style.display='none';return;
   }
-
   if(data[key]){
     area.innerHTML=`<div class="already-done">
       <div class="tick">✅</div><h2>Done for today!</h2>
-      <p>Come back tomorrow, or check the <strong>History</strong> tab.</p>
+      <p>Come back tomorrow, or check <strong>History</strong> and <strong>Analysis</strong>.</p>
       <div id="redo-confirm" style="margin-top:14px">
         <button class="reset-btn" style="width:auto;padding:8px 16px;font-size:0.8rem" onclick="showRedoConfirm()">Redo today's check-in</button>
       </div>
@@ -433,7 +416,6 @@ function buildForm(){
     </div>`;
     btn.style.display='none';return;
   }
-
   btn.style.display='block';
   let html='';
   TOPICS.forEach(t=>{
@@ -485,76 +467,42 @@ function confirmRedo(){const d=load();delete d[todayKey()];save(d);buildForm();}
 
 function submitToday(){
   const goodEl=document.getElementById('notes-good');
-  if(!goodEl||!goodEl.value.trim()){
-    goodEl?.focus();
-    showToast('Please name at least one good thing 🌟');
-    return;
-  }
+  if(!goodEl||!goodEl.value.trim()){goodEl?.focus();showToast('Please name at least one good thing 🌟');return;}
   const key=todayKey(),entry={date:key,ts:Date.now()};
   TOPICS.forEach(t=>{entry[t.key]=parseInt(document.getElementById(`slider-${t.key}`).value);});
   entry.good=(goodEl.value||'').trim();
-  entry.bad =(document.getElementById('notes-bad')?.value||'').trim();
+  entry.bad=(document.getElementById('notes-bad')?.value||'').trim();
   const d=load();d[key]=entry;save(d);
   launchConfetti();showToast('Check-in saved! 🎉');
   setTimeout(()=>buildForm(),900);
   autoSync();
 }
 
-// ── HISTORY ───────────────────────────────────────────────
-function setFilter(f){
-  topicFilter=f;
-  ['all','mood','school','home'].forEach(k=>{
-    const el=document.getElementById(`tf-${k}`);
-    if(!el)return;
-    el.classList.toggle('active',k===f);
-  });
-  buildHistory();
-}
-
-function activeTopics(){
-  return topicFilter==='all' ? TOPICS : TOPICS.filter(t=>t.key===topicFilter);
-}
-
+// ── HISTORY TABLE ─────────────────────────────────────────
 function setRange(days){
   currentRange=days;
   ['14','30','0'].forEach(r=>document.getElementById(`rt-${r}`).classList.toggle('active',parseInt(r)===days));
   buildHistoryTable();
 }
-
 function getKeys(days){
   const data=load();let keys=Object.keys(data).sort();
   if(days>0){const c=new Date();c.setDate(c.getDate()-days);const ck=fmtKey(c);keys=keys.filter(k=>k>=ck);}
   return keys;
 }
-
-function buildHistory(){
-  const data=load();
-  const allKeys=Object.keys(data).sort();
-  drawTrendChart(allKeys,data);
-  drawDowChart(allKeys,data);
-  drawHeatmap(allKeys,data);
-  buildHistoryTable();
-  // In parent mode hide the action buttons that require Neva's phone
-  if(parentMode){
-    document.getElementById('btn-missed').style.display='none';
-  }
-}
-
 function buildHistoryTable(){
   const keys=getKeys(currentRange),data=load();
   const wrap=document.getElementById('history-table-wrap');
   if(keys.length===0){
-    wrap.innerHTML=`<div class="empty-state"><div class="e-icon">📋</div><p>No check-ins in this range yet.</p></div>`;
-    return;
+    wrap.innerHTML=`<div class="empty-state"><div class="e-icon">📋</div><p>No check-ins in this range yet.</p></div>`;return;
   }
-  const sums={},counts={};activeTopics().forEach(t=>{sums[t.key]=0;counts[t.key]=0;});
+  const sums={},counts={};TOPICS.forEach(t=>{sums[t.key]=0;counts[t.key]=0;});
   let html=`<table class="history-table"><thead><tr>
-    <th>Day</th>${activeTopics().map(t=>`<th style="color:${t.color}">${t.label}</th>`).join('')}
+    <th>Day</th>${TOPICS.map(t=>`<th style="color:${t.color}">${t.label}</th>`).join('')}
   </tr></thead><tbody>`;
   [...keys].reverse().forEach(k=>{
     const e=data[k],d=new Date(k+'T12:00:00');
     html+=`<tr><td>${DAYS[d.getDay()]} ${d.getDate()}/${d.getMonth()+1}</td>`;
-    activeTopics().forEach(t=>{const v=e[t.key];html+=`<td><span class="score-chip" style="background:${sc(v)}">${v}</span></td>`;sums[t.key]+=v;counts[t.key]++;});
+    TOPICS.forEach(t=>{const v=e[t.key];html+=`<td><span class="score-chip" style="background:${sc(v)}">${v}</span></td>`;sums[t.key]+=v;counts[t.key]++;});
     html+=`</tr>`;
     const hasNotes=e.good||e.bad||e.notes;
     if(hasNotes){
@@ -566,24 +514,40 @@ function buildHistoryTable(){
     }
   });
   html+=`<tr class="avg-row"><td style="color:var(--text)!important;font-size:0.75rem">Average</td>`;
-  activeTopics().forEach(t=>{const avg=counts[t.key]?(sums[t.key]/counts[t.key]).toFixed(1):'—';const col=counts[t.key]?sc(Math.round(sums[t.key]/counts[t.key])):'#555';html+=`<td><span class="score-chip" style="background:${col};font-size:0.7rem">${avg}</span></td>`;});
+  TOPICS.forEach(t=>{const avg=counts[t.key]?(sums[t.key]/counts[t.key]).toFixed(1):'—';const col=counts[t.key]?sc(Math.round(sums[t.key]/counts[t.key])):'#555';html+=`<td><span class="score-chip" style="background:${col};font-size:0.7rem">${avg}</span></td>`;});
   html+=`</tr></tbody></table>`;
   wrap.innerHTML=html;
 }
-
 function esc(s){return (s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-// ── CHARTS ────────────────────────────────────────────────
+// ── ANALYSIS CHARTS ───────────────────────────────────────
+function setFilter(f){
+  topicFilter=f;
+  ['all','mood','school','home'].forEach(k=>{document.getElementById(`tf-${k}`)?.classList.toggle('active',k===f);});
+  // Show/hide weekend note
+  const note=document.getElementById('school-weekend-note');
+  if(note)note.style.display=(f==='all'||f==='school')?'block':'none';
+  buildAnalysis();
+}
+
+function buildAnalysis(){
+  const data=load();
+  const allKeys=Object.keys(data).sort();
+  drawTrendChart(allKeys,data);
+  drawDowChart(allKeys,data);
+  drawHeatmap(allKeys,data);
+}
+
+// canvas helper
 function initCanvas(id,h){
-  const canvas=document.getElementById(id);
-  if(!canvas)return null;
+  const canvas=document.getElementById(id);if(!canvas)return null;
   const ctx=canvas.getContext('2d');
   const dpr=window.devicePixelRatio||1;
   const W=canvas.parentElement.clientWidth-28;
   canvas.width=W*dpr;canvas.height=h*dpr;
   canvas.style.width=W+'px';canvas.style.height=h+'px';
   ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,h);
-  return {ctx,W,H:h};
+  return{ctx,W,H:h};
 }
 function emptyChart(id,msg,h){
   const r=initCanvas(id,h);if(!r)return;const{ctx,W,H}=r;
@@ -591,78 +555,112 @@ function emptyChart(id,msg,h){
   ctx.fillText(msg,W/2,H/2+4);
 }
 
-function drawTrendChart(keys,data){
-  if(keys.length<2){emptyChart('chart-trend','Add more check-ins to see trends',150);return;}
-  const {ctx,W,H}=initCanvas('chart-trend',150);
+// ── TREND CHART with overall dotted trend line ────────────
+function drawTrendChart(allKeys,data){
+  const at=activeTopics();
+  if(allKeys.length<2){emptyChart('chart-trend','Add more check-ins to see trends',150);return;}
+  const{ctx,W,H}=initCanvas('chart-trend',150);
   const P={t:8,r:8,b:24,l:24};const cW=W-P.l-P.r,cH=H-P.t-P.b;
+
+  // Grid
   for(let v=2;v<=10;v+=2){
     const y=P.t+cH-(v/10)*cH;
     ctx.beginPath();ctx.strokeStyle='#1e1e38';ctx.lineWidth=1;ctx.moveTo(P.l,y);ctx.lineTo(P.l+cW,y);ctx.stroke();
     ctx.fillStyle='#44446a';ctx.font=`600 8px Nunito,sans-serif`;ctx.textAlign='right';ctx.fillText(v,P.l-4,y+3);
   }
-  const xStep=cW/(keys.length-1);
-  activeTopics().forEach(t=>{
-    const pts=keys.map((k,i)=>({x:P.l+i*xStep,y:P.t+cH-((data[k][t.key]-1)/9)*cH}));
+
+  const xStep=cW/(allKeys.length-1);
+
+  // Draw each topic line
+  at.forEach(t=>{
+    const pts=allKeys.map((k,i)=>({x:P.l+i*xStep,y:P.t+cH-((data[k][t.key]-1)/9)*cH}));
     ctx.beginPath();ctx.moveTo(pts[0].x,P.t+cH);pts.forEach(p=>ctx.lineTo(p.x,p.y));
     ctx.lineTo(pts[pts.length-1].x,P.t+cH);ctx.closePath();ctx.fillStyle=t.color+'15';ctx.fill();
     ctx.beginPath();ctx.strokeStyle=t.color;ctx.lineWidth=2;ctx.lineJoin='round';ctx.lineCap='round';
     pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));ctx.stroke();
-    pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,2.8,0,Math.PI*2);ctx.fillStyle=t.color;ctx.fill();});
+    pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,2.5,0,Math.PI*2);ctx.fillStyle=t.color;ctx.fill();});
   });
-  const every=Math.ceil(keys.length/5);
+
+  // Overall trend line (linear regression across average of active topics)
+  const avgVals=allKeys.map(k=>at.reduce((s,t)=>s+data[k][t.key],0)/at.length);
+  const n=avgVals.length;
+  const sumX=allKeys.reduce((_,__,i)=>_+i,0);
+  const sumY=avgVals.reduce((a,b)=>a+b,0);
+  const sumXY=avgVals.reduce((s,v,i)=>s+i*v,0);
+  const sumX2=allKeys.reduce((s,_,i)=>s+i*i,0);
+  const slope=(n*sumXY-sumX*sumY)/(n*sumX2-sumX*sumX);
+  const intercept=(sumY-slope*sumX)/n;
+  const tx0=P.l,ty0=P.t+cH-((intercept-1)/9)*cH;
+  const tx1=P.l+(n-1)*xStep,ty1=P.t+cH-((intercept+slope*(n-1)-1)/9)*cH;
+  ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,0.6)';ctx.lineWidth=1.5;
+  ctx.setLineDash([4,4]);ctx.moveTo(tx0,ty0);ctx.lineTo(tx1,ty1);ctx.stroke();ctx.setLineDash([]);
+
+  // X labels
+  const every=Math.ceil(allKeys.length/5);
   ctx.fillStyle='#44446a';ctx.font=`600 8px Nunito,sans-serif`;ctx.textAlign='center';
-  keys.forEach((k,i)=>{
-    if(i%every!==0&&i!==keys.length-1)return;
+  allKeys.forEach((k,i)=>{
+    if(i%every!==0&&i!==allKeys.length-1)return;
     const d=new Date(k+'T12:00:00');ctx.fillText(`${d.getDate()}/${d.getMonth()+1}`,P.l+i*xStep,H-5);
   });
 }
 
-function drawDowChart(keys,data){
-  if(keys.length<3){emptyChart('chart-dow','Need more data to show patterns',150);return;}
-  const {ctx,W,H}=initCanvas('chart-dow',150);
+// ── DAY OF WEEK BARS (weekend school excluded) ────────────
+function drawDowChart(allKeys,data){
+  const at=activeTopics();
+  if(allKeys.length<3){emptyChart('chart-dow','Need more data to show patterns',150);return;}
+  const{ctx,W,H}=initCanvas('chart-dow',150);
   const P={t:8,r:8,b:22,l:24};const cW=W-P.l-P.r,cH=H-P.t-P.b;
   const sums={},counts={};
-  DAYS.forEach((_,i)=>{sums[i]={};counts[i]={};activeTopics().forEach(t=>{sums[i][t.key]=0;counts[i][t.key]=0;});});
-  keys.forEach(k=>{const e=data[k];const dow=new Date(k+'T12:00:00').getDay();activeTopics().forEach(t=>{sums[dow][t.key]+=e[t.key];counts[dow][t.key]++;});});
+  DAYS.forEach((_,i)=>{sums[i]={};counts[i]={};at.forEach(t=>{sums[i][t.key]=0;counts[i][t.key]=0;});});
+  allKeys.forEach(k=>{
+    const e=data[k];const dow=new Date(k+'T12:00:00').getDay();
+    at.forEach(t=>{
+      if(isExcluded(k,t.key))return; // skip weekend school
+      sums[dow][t.key]+=e[t.key];counts[dow][t.key]++;
+    });
+  });
   for(let v=2;v<=10;v+=2){
     const y=P.t+cH-(v/10)*cH;
     ctx.beginPath();ctx.strokeStyle='#1e1e38';ctx.lineWidth=1;ctx.moveTo(P.l,y);ctx.lineTo(P.l+cW,y);ctx.stroke();
     ctx.fillStyle='#44446a';ctx.font=`600 8px Nunito,sans-serif`;ctx.textAlign='right';ctx.fillText(v,P.l-4,y+3);
   }
-  const slotW=cW/7,barW=slotW/5;
-  const at=activeTopics();
-  const offs=at.length===1?[0]:at.length===2?[-1,1]:[-1.5,0,1.5];
+  const slotW=cW/7;
+  const groupW=slotW*0.72;
+  const barW=groupW/at.length;
   at.forEach((t,ti)=>{
     DAYS.forEach((_,dow)=>{
       const avg=counts[dow][t.key]?sums[dow][t.key]/counts[dow][t.key]:null;
       if(avg===null)return;
-      const x=P.l+dow*slotW+slotW/2+offs[ti]*barW*1.4;
+      const groupStart=P.l+dow*slotW+(slotW-groupW)/2;
+      const x=groupStart+ti*barW+barW/2;
       const bH=(avg/10)*cH,y=P.t+cH-bH;
       ctx.fillStyle=t.color+'cc';
-      ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x-barW/2,y,barW,bH,2);else ctx.rect(x-barW/2,y,barW,bH);ctx.fill();
+      ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x-barW/2+1,y,barW-2,bH,2);else ctx.rect(x-barW/2+1,y,barW-2,bH);ctx.fill();
     });
   });
   ctx.fillStyle='#66668a';ctx.font=`700 9px Nunito,sans-serif`;ctx.textAlign='center';
   DAYS.forEach((d,i)=>ctx.fillText(d,P.l+i*slotW+slotW/2,H-4));
 }
 
-function drawHeatmap(keys,data){
-  if(keys.length<2){emptyChart('chart-heat','Need more data for heatmap',100);return;}
+// ── HEATMAP ───────────────────────────────────────────────
+function drawHeatmap(allKeys,data){
+  const at=activeTopics();
+  if(allKeys.length<2){emptyChart('chart-heat','Need more data for heatmap',100);return;}
   const weeks=[],weekMap={};
-  keys.forEach(k=>{
+  allKeys.forEach(k=>{
     const d=new Date(k+'T12:00:00');
     const day=d.getDay(),diff=d.getDate()-day+(day===0?-6:1);
     const mon=new Date(d);mon.setDate(diff);const wk=fmtKey(mon);
     if(!weekMap[wk]){weekMap[wk]={};weeks.push(wk);}
     const dow=d.getDay()===0?6:d.getDay()-1;
-    activeTopics().forEach(t=>{if(!weekMap[wk][dow])weekMap[wk][dow]={};weekMap[wk][dow][t.key]=(data[k][t.key]||0);});
+    at.forEach(t=>{if(!weekMap[wk][dow])weekMap[wk][dow]={};weekMap[wk][dow][t.key]=(data[k][t.key]||0);});
   });
   weeks.sort();
   const showWeeks=Math.min(weeks.length,8);
   const hNeeded=showWeeks*18+20;
-  const {ctx,W,H}=initCanvas('chart-heat',hNeeded);
-  const P={t:16,r:4,b:4,l:36};
-  const cW=W-P.l-P.r,cellW=cW/7,cellH=(H-P.t-P.b)/showWeeks;
+  const{ctx,W,H}=initCanvas('chart-heat',hNeeded);
+  const P={t:16,r:4,b:4,l:36};const cW=W-P.l-P.r;
+  const cellW=cW/7,cellH=(H-P.t-P.b)/showWeeks;
   const DOW_SHORT=['M','T','W','T','F','S','S'];
   ctx.fillStyle='#66668a';ctx.font=`700 9px Nunito,sans-serif`;ctx.textAlign='center';
   DOW_SHORT.forEach((d,i)=>ctx.fillText(d,P.l+i*cellW+cellW/2,11));
@@ -676,8 +674,11 @@ function drawHeatmap(keys,data){
       const x=P.l+dow*cellW+1,y=P.t+wi*cellH+1,w=cellW-2,h=cellH-2;
       if(!cell){ctx.fillStyle='#12122a';ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,3);else ctx.rect(x,y,w,h);ctx.fill();}
       else{
-        const avg=activeTopics().reduce((s,t)=>s+(cell[t.key]||0),0)/activeTopics().length;
-        ctx.fillStyle=sc(avg);ctx.globalAlpha=0.7;
+        // Only average topics that have data in this cell
+        const validTopics=at.filter(t=>cell[t.key]!==undefined);
+        if(validTopics.length===0)return;
+        const avg=validTopics.reduce((s,t)=>s+cell[t.key],0)/validTopics.length;
+        ctx.fillStyle=sc(avg);ctx.globalAlpha=0.75;
         ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,3);else ctx.rect(x,y,w,h);ctx.fill();
         ctx.globalAlpha=1;
         ctx.fillStyle='rgba(255,255,255,0.9)';ctx.font=`700 8px Nunito,sans-serif`;ctx.textAlign='center';
@@ -687,113 +688,52 @@ function drawHeatmap(keys,data){
   });
 }
 
-// ── GITHUB GIST SYNC ─────────────────────────────────────
+// ── GIST SYNC ─────────────────────────────────────────────
 function updateSettingsUI(){
   const token=localStorage.getItem(GIST_TK);
-  document.getElementById('gist-card').style.display = token ? 'none' : 'block';
-  document.getElementById('sync-card').style.display  = token ? 'block' : 'none';
+  document.getElementById('gist-card').style.display=token?'none':'block';
+  document.getElementById('sync-card').style.display=token?'block':'none';
 }
-
 function saveGistToken(){
   const input=document.getElementById('gist-token-input');
   const val=(input.value||'').trim();
-  if(!val||!val.startsWith('ghp_')){
-    setStatus('gist-token-status','Token should start with ghp_ — please check and try again','err');
-    return;
-  }
-  localStorage.setItem(GIST_TK,val);
-  input.value='';
-  setStatus('gist-token-status','Token saved ✓','ok');
-  updateSettingsUI();
+  if(!val||!val.startsWith('ghp_')){setStatus('gist-token-status','Token should start with ghp_ — please check','err');return;}
+  localStorage.setItem(GIST_TK,val);input.value='';
+  setStatus('gist-token-status','Token saved ✓','ok');updateSettingsUI();
 }
-
-function clearGistToken(){
-  localStorage.removeItem(GIST_TK);
-  updateSettingsUI();
-  showToast('Disconnected');
-}
-
+function clearGistToken(){localStorage.removeItem(GIST_TK);updateSettingsUI();showToast('Disconnected');}
 async function syncToGist(silent=false){
   const token=localStorage.getItem(GIST_TK);
   if(!token){if(!silent)showToast('No token saved — see setup steps');return;}
   const btn=document.getElementById('sync-btn');
   if(btn&&!silent){btn.innerHTML='<span class="spinner"></span>Syncing…';btn.disabled=true;}
   try{
-    const data=load();
-    const content=JSON.stringify(data,null,2);
+    const content=JSON.stringify(load(),null,2);
     const existingId=localStorage.getItem(GIST_ID);
-    let res,json;
-    if(existingId){
-      res=await fetch(`https://api.github.com/gists/${existingId}`,{
-        method:'PATCH',
-        headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},
-        body:JSON.stringify({files:{[GIST_FILE]:{content}}})
-      });
-    }else{
-      res=await fetch('https://api.github.com/gists',{
-        method:'POST',
-        headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},
-        body:JSON.stringify({description:'Neva check-in data',public:false,files:{[GIST_FILE]:{content}}})
-      });
-    }
-    json=await res.json();
+    const res=await fetch(existingId?`https://api.github.com/gists/${existingId}`:'https://api.github.com/gists',{
+      method:existingId?'PATCH':'POST',
+      headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},
+      body:JSON.stringify(existingId
+        ?{files:{[GIST_FILE]:{content}}}
+        :{description:'Neva check-in data',public:false,files:{[GIST_FILE]:{content}}})
+    });
+    const json=await res.json();
     if(!res.ok)throw new Error(json.message||'GitHub error');
     localStorage.setItem(GIST_ID,json.id);
-    if(!silent){
-      const when=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-      setStatus('sync-status',`Synced at ${when} ✓`,'ok');
-    }
-  }catch(e){
-    if(!silent)setStatus('sync-status',`Error: ${e.message}`,'err');
-  }
+    if(!silent){const when=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});setStatus('sync-status',`Synced at ${when} ✓`,'ok');}
+  }catch(e){if(!silent)setStatus('sync-status',`Error: ${e.message}`,'err');}
   if(btn&&!silent){btn.innerHTML='Sync now';btn.disabled=false;}
 }
-
-// Silent auto-sync — fires after every save if a token exists
-function autoSync(){
-  const token=localStorage.getItem(GIST_TK);
-  if(!token)return;
-  syncToGist(true);
-}
-
+function autoSync(){const token=localStorage.getItem(GIST_TK);if(!token)return;syncToGist(true);}
 function shareGistLink(){
   const gistId=localStorage.getItem(GIST_ID);
   if(!gistId){showToast('Sync first to generate a link');return;}
   const viewUrl=`${location.href.split('?')[0]}?gist=${gistId}`;
-  const msg=`📊 View Neva's check-in data here:\n${viewUrl}`;
-  window.location.href=`whatsapp://send?phone=447911732383&text=${encodeURIComponent(msg)}`;
+  window.location.href=`whatsapp://send?phone=447911732383&text=${encodeURIComponent(`📊 View Neva's check-in data:\n${viewUrl}`)}`;
 }
+function setStatus(id,msg,type){const el=document.getElementById(id);if(!el)return;el.textContent=msg;el.className='status-line '+(type||'');}
 
-// ── LOAD PARENT VIEW FROM GIST ───────────────────────────
-async function loadFromGist(gistId){
-  showToast('Loading data…');
-  try{
-    const res=await fetch(`https://api.github.com/gists/${gistId}`);
-    if(!res.ok)throw new Error('Could not load data');
-    const json=await res.json();
-    const content=json.files[GIST_FILE]?.content;
-    if(!content)throw new Error('No data found in Gist');
-    const data=JSON.parse(content);
-    // Store gist ID (no token) so next visit auto-loads parent mode
-    localStorage.setItem(GIST_ID,gistId);
-    localStorage.removeItem(SK); // clear any local data on Mum's phone
-    save(data);
-    showToast('Data loaded ✓');
-    enterParentMode();
-    buildForm();
-    buildHistory();
-  }catch(e){
-    showToast('Could not load: '+e.message);
-  }
-}
-
-function setStatus(id,msg,type){
-  const el=document.getElementById(id);
-  if(!el)return;
-  el.textContent=msg;el.className='status-line '+(type||'');
-}
-
-// ── WHATSAPP ─────────────────────────────────────────────
+// ── WHATSAPP TEXT SUMMARY ─────────────────────────────────
 function shareWhatsApp(){
   const data=load();const allKeys=Object.keys(data).sort();const keys=allKeys.slice(-10);
   if(keys.length===0){showToast('No data to share yet!');return;}
@@ -807,7 +747,6 @@ function shareWhatsApp(){
     TOPICS.forEach(t=>{msg+=`  ${t.label}: ${e[t.key]}/10 ${faces(e[t.key])}\n`;});
     if(e.good)msg+=`  🌟 ${e.good}\n`;
     if(e.bad) msg+=`  💭 ${e.bad}\n`;
-    if(e.notes&&!e.good&&!e.bad)msg+=`  💬 ${e.notes}\n`;
     msg+='\n';
   });
   window.location.href=`whatsapp://send?phone=447911732383&text=${encodeURIComponent(msg)}`;
@@ -826,7 +765,6 @@ function downloadPDF(){
     let notesHtml='';
     if(e.good)notesHtml+=`<div style="color:#1a7a3a">🌟 ${esc(e.good)}</div>`;
     if(e.bad) notesHtml+=`<div style="color:#a03030;margin-top:2px">💭 ${esc(e.bad)}</div>`;
-    if(e.notes&&!e.good&&!e.bad)notesHtml+=`<div style="color:#555">💬 ${esc(e.notes)}</div>`;
     rows+=`<tr><td>${ds}</td>${TOPICS.map(t=>{sums[t.key]+=e[t.key];counts[t.key]++;return `<td style="text-align:center;font-weight:700;color:${sc(e[t.key])}">${e[t.key]}/10</td>`;}).join('')}<td style="font-size:0.8rem;line-height:1.4">${notesHtml||'—'}</td></tr>`;
   });
   const avgRow=`<tr style="background:#f5f5f5;font-weight:800"><td>Average</td>${TOPICS.map(t=>{const avg=counts[t.key]?(sums[t.key]/counts[t.key]).toFixed(1):'—';return `<td style="text-align:center;color:${sc(Math.round(sums[t.key]/counts[t.key]))}">${avg}</td>`;}).join('')}<td></td></tr>`;
@@ -844,7 +782,7 @@ function downloadPDF(){
   <div class="scale">Scale: 1 = Terrible · 10 = Amazing</div>
   <table><thead><tr><th>Date</th>${TOPICS.map(t=>`<th>${t.label}</th>`).join('')}<th>Notes</th></tr></thead>
   <tbody>${rows}${avgRow}</tbody></table>
-  <div class="note">Mood = general emotional wellbeing · School = feelings about school · Home = feelings about home environment</div>
+  <div class="note">Mood = general emotional wellbeing · School = feelings about school · Home = feelings about home environment<br>School scores on Saturdays and Sundays are excluded from averages in the Analysis view.</div>
   </body></html>`);
   win.document.close();setTimeout(()=>win.print(),400);
 }
@@ -905,14 +843,14 @@ function savePastDay(){
   const entry={date:selKey,ts:Date.now()};
   TOPICS.forEach(t=>{entry[t.key]=parseInt(document.getElementById(`pslider-${t.key}`).value);});
   entry.good=(document.getElementById('past-good')?.value||'').trim();
-  entry.bad =(document.getElementById('past-bad')?.value||'').trim();
+  entry.bad=(document.getElementById('past-bad')?.value||'').trim();
   const d=load();d[selKey]=entry;save(d);
   const pill=document.getElementById(`dp-${selKey}`);
   if(pill){pill.classList.add('done');const dot=pill.querySelector('.dp-dot');if(dot)dot.style.background='#2ecc71';}
   launchConfetti();showToast('Saved! ✓');
   document.getElementById('past-form').innerHTML='';selKey=null;
   document.querySelectorAll('.day-pill').forEach(el=>el.classList.remove('selected'));
-  setTimeout(()=>{document.getElementById('past-modal').classList.remove('open');buildHistory();},800);
+  setTimeout(()=>{document.getElementById('past-modal').classList.remove('open');},800);
   autoSync();
 }
 
@@ -920,7 +858,7 @@ function savePastDay(){
 function resetAll(){
   const btn=document.querySelector('.reset-btn');
   if(btn&&btn.dataset.confirming==='true'){
-    localStorage.removeItem(SK);buildForm();buildHistory();showToast('All data cleared');
+    localStorage.removeItem(SK);buildForm();buildHistoryTable();showToast('All data cleared');
     btn.textContent='Clear ALL data permanently';btn.dataset.confirming='false';btn.style.borderColor='';btn.style.color='';
   }else if(btn){
     btn.textContent='Tap again to confirm — cannot be undone';btn.dataset.confirming='true';
@@ -931,11 +869,12 @@ function resetAll(){
 
 // ── NAV ───────────────────────────────────────────────────
 function showScreen(name){
-  ['today','history','settings'].forEach(s=>{
-    document.getElementById(`screen-${s}`).classList.toggle('active',s===name);
+  ['today','history','analysis','settings'].forEach(s=>{
+    document.getElementById(`screen-${s}`)?.classList.toggle('active',s===name);
     document.getElementById(`btn-${s}`)?.classList.toggle('active',s===name);
   });
-  if(name==='history')buildHistory();
+  if(name==='history')buildHistoryTable();
+  if(name==='analysis')buildAnalysis();
 }
 
 // ── TOAST & CONFETTI ──────────────────────────────────────
@@ -949,18 +888,32 @@ function launchConfetti(){
   setTimeout(()=>wrap.innerHTML='',2000);
 }
 
+// ── LOAD FROM GIST (parent view) ──────────────────────────
+async function loadFromGist(gistId){
+  showToast('Loading data…');
+  try{
+    const res=await fetch(`https://api.github.com/gists/${gistId}`);
+    if(!res.ok)throw new Error('Could not load data');
+    const json=await res.json();
+    const content=json.files[GIST_FILE]?.content;
+    if(!content)throw new Error('No data found');
+    const data=JSON.parse(content);
+    localStorage.setItem(GIST_ID,gistId);
+    localStorage.removeItem(SK);
+    save(data);
+    showToast('Data loaded ✓');
+    enterParentMode();
+    buildForm();
+  }catch(e){showToast('Could not load: '+e.message);}
+}
+
 // ── INIT ──────────────────────────────────────────────────
 const _n=new Date();
 document.getElementById('date-badge').textContent=_n.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
-
-// Check for ?gist= param (Mum tapping the link from WhatsApp)
 const _params=new URLSearchParams(location.search);
 const _gistParam=_params.get('gist');
-if(_gistParam){
-  loadFromGist(_gistParam);
-}else{
-  detectParentMode();
-}
+if(_gistParam){loadFromGist(_gistParam);}
+else{detectParentMode();}
 buildForm();
 </script>
 </body>
