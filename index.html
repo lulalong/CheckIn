@@ -90,7 +90,8 @@ input[type=range]::-moz-range-track{height:8px;border-radius:4px}
 /* HISTORY TABLE */
 .history-table{width:100%;border-collapse:separate;border-spacing:0 4px;font-size:0.8rem}
 .history-table th{font-size:0.65rem;font-weight:800;letter-spacing:0.7px;text-transform:uppercase;
-  color:var(--soft);padding:0 7px 6px;text-align:center}
+  color:var(--soft);padding:0 7px 6px;text-align:center;
+  position:sticky;top:47px;background:var(--bg);z-index:5;padding-top:8px}
 .history-table th:first-child{text-align:left}
 .history-table td{background:var(--card);padding:10px 7px;text-align:center;font-weight:700}
 .history-table td:first-child{border-radius:10px 0 0 10px;text-align:left;font-size:0.75rem;color:var(--soft);padding-left:11px;font-weight:800}
@@ -525,7 +526,7 @@ function buildForm(){
   <div class="notes-card bad">
     <div class="notes-label" style="color:#e87070">💭 Something difficult</div>
     <div class="notes-prompt">Did anything bad or difficult happen since your last check-in? Add a reminder so you remember to discuss with James.</div>
-    <textarea class="notes-textarea" id="notes-bad" placeholder="1. How I feel. 2. What caused it? 3. What can I do, or tell myself, that will help me cope?"></textarea>
+    <textarea class="notes-textarea" id="notes-bad" placeholder="1. What happened?&#10;2. How did you feel?&#10;3. What could you have done differently?"></textarea>
   </div>`;
   area.innerHTML=html;
   requestAnimationFrame(()=>{
