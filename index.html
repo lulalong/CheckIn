@@ -172,6 +172,39 @@ canvas{width:100%!important;display:block}
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);
   border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;margin-right:6px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* TOOLKIT */
+.tk-zone{width:100%;border-radius:var(--radius);padding:14px 14px 6px;margin-bottom:14px;border:1px solid}
+.tk-zone-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.tk-zone-title{font-size:0.95rem;font-weight:900;letter-spacing:0.3px}
+.tk-zone-sub{font-size:0.72rem;color:var(--soft);font-weight:700}
+.tk-feeling{background:rgba(0,0,0,0.25);border-radius:14px;padding:11px 13px;margin-bottom:8px;
+  cursor:pointer;transition:background 0.15s}
+.tk-feeling:active{background:rgba(0,0,0,0.4)}
+.tk-feeling-row{display:flex;align-items:center;gap:9px}
+.tk-feeling-emoji{font-size:1.4rem;line-height:1;flex-shrink:0}
+.tk-feeling-text{font-size:0.88rem;font-weight:700;flex:1}
+.tk-feeling-count{font-size:0.7rem;font-weight:800;color:var(--soft);background:rgba(255,255,255,0.08);
+  border-radius:20px;padding:3px 9px;flex-shrink:0}
+.tk-feeling-chev{font-size:0.8rem;color:var(--soft);transition:transform 0.2s;flex-shrink:0}
+.tk-feeling.open .tk-feeling-chev{transform:rotate(90deg)}
+.tk-actions{display:none;flex-wrap:wrap;gap:6px;margin-top:11px;padding-top:11px;border-top:1px solid rgba(255,255,255,0.07)}
+.tk-feeling.open .tk-actions{display:flex}
+.tk-chip{display:flex;align-items:center;gap:5px;font-size:0.78rem;font-weight:700;
+  padding:7px 11px;border-radius:20px;cursor:pointer;border:1.5px solid rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.04);color:var(--soft);transition:all 0.15s;user-select:none}
+.tk-chip.on{background:#2ecc7122;border-color:#2ecc71;color:#7fe6a8}
+.tk-chip:active{transform:scale(0.95)}
+.tk-chip .tk-chip-emoji{font-size:0.95rem}
+.tk-add-row{display:flex;gap:6px;margin-top:9px}
+.tk-add-input{flex:1;background:#0a0a14;border:1px solid #2a2a40;border-radius:10px;color:var(--text);
+  font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:600;padding:9px 11px;outline:none}
+.tk-add-input:focus{border-color:#a78bfa}
+.tk-add-btn{background:#7c3aed;border:none;color:white;border-radius:10px;padding:0 14px;
+  font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:800;cursor:pointer}
+.tk-mini-add{font-size:0.74rem;font-weight:800;color:#a78bfa;background:none;border:none;
+  cursor:pointer;padding:6px 2px;font-family:'Nunito',sans-serif}
+.tk-readonly-note{font-size:0.74rem;color:var(--soft);text-align:center;margin:4px 0 14px;font-style:italic}
 </style>
 </head>
 <body>
@@ -184,6 +217,7 @@ canvas{width:100%!important;display:block}
     <button class="nav-btn active" id="btn-today"    onclick="showScreen('today')">Today</button>
     <button class="nav-btn"        id="btn-history"  onclick="showScreen('history')">History</button>
     <button class="nav-btn"        id="btn-analysis" onclick="showScreen('analysis')">Analysis</button>
+    <button class="nav-btn"        id="btn-toolkit"  onclick="showScreen('toolkit')">Toolkit</button>
     <button class="nav-btn"        id="btn-settings" onclick="showScreen('settings')">⚙</button>
   </div>
 </div>
@@ -270,6 +304,13 @@ canvas{width:100%!important;display:block}
   </div>
 </div>
 
+<!-- TOOLKIT -->
+<div class="screen" id="screen-toolkit">
+  <div class="section-title">My Toolkit</div>
+  <div class="section-sub">If my body feels this way, here's what can help</div>
+  <div id="toolkit-wrap" style="width:100%"></div>
+</div>
+
 <!-- SETTINGS -->
 <div class="screen" id="screen-settings">
   <div class="section-title" style="margin-bottom:4px">Settings</div>
@@ -343,6 +384,75 @@ const TOPICS=[
   {key:'school',label:'School',color:'#f39c12'},
   {key:'home',  label:'Home',  color:'#3498db'},
 ];
+
+// ── TOOLKIT DEFAULTS ──────────────────────────────────────
+// Zones of feelings (from "If my body..." sheet) and coping actions (from "Then I can..." sheet)
+const TK_ZONES=[
+  {id:'high', title:'High alert', sub:'Fast & buzzy', color:'#e74c3c', bg:'#1f0d0d', border:'#4a1a1a',
+   feelings:[
+     {id:'f_fastheart',emoji:'💓',text:'has a faster heartbeat'},
+     {id:'f_breathfast',emoji:'😤',text:'is breathing faster'},
+     {id:'f_sweaty',emoji:'🤚',text:'has sweaty hands'},
+     {id:'f_busy',emoji:'🤸',text:'is busy and wriggly'},
+     {id:'f_racing',emoji:'🌀',text:'has lots of thoughts in my head'},
+     {id:'f_nocontrol',emoji:'😵‍💫',text:"has thoughts I can't control"},
+   ]},
+  {id:'tense', title:'Tense', sub:'Big feelings', color:'#f39c12', bg:'#1f1605', border:'#4a3410',
+   feelings:[
+     {id:'f_extra',emoji:'😣',text:'has extra feelings'},
+     {id:'f_big',emoji:'😢',text:'is having big feelings'},
+     {id:'f_stiff',emoji:'🧍',text:'is stiff and rigid'},
+     {id:'f_clenched',emoji:'✊',text:'has clenched and hot hands'},
+     {id:'f_fastheart2',emoji:'💗',text:'has a fast heartbeat'},
+     {id:'f_shallow',emoji:'🫁',text:'is breathing fast and shallow'},
+   ]},
+  {id:'calm', title:'Calm & ready', sub:'Good to go', color:'#2ecc71', bg:'#0d2018', border:'#1a4a2a',
+   feelings:[
+     {id:'f_calmheart',emoji:'💚',text:'has a calm heartbeat'},
+     {id:'f_relaxed',emoji:'😌',text:'is relaxed'},
+     {id:'f_focus',emoji:'🎯',text:'can focus and learn'},
+     {id:'f_goodenergy',emoji:'⚡',text:'has a good amount of energy'},
+     {id:'f_feelingcalm',emoji:'🙂',text:'is feeling calm'},
+     {id:'f_slowdeep',emoji:'🌬️',text:'is breathing slow and deep'},
+   ]},
+  {id:'low', title:'Low energy', sub:'Tired & heavy', color:'#3498db', bg:'#0a1622', border:'#16314a',
+   feelings:[
+     {id:'f_slowheart',emoji:'💙',text:'has a slow heartbeat'},
+     {id:'f_droopy',emoji:'😴',text:'is droopy and heavy'},
+     {id:'f_slowbrain',emoji:'🐌',text:"has a slow brain and can't think clearly"},
+     {id:'f_noenergy',emoji:'🔋',text:'has no energy'},
+     {id:'f_rest',emoji:'🛌',text:'wants to rest'},
+     {id:'f_sore',emoji:'🤕',text:'feels uncomfortable or sore'},
+   ]},
+];
+const TK_ACTIONS=[
+  {id:'a_break',emoji:'🚶',text:'ask for a break'},
+  {id:'a_breaths',emoji:'😮‍💨',text:'take deep breaths'},
+  {id:'a_count',emoji:'🔟',text:'count to 10'},
+  {id:'a_exercise',emoji:'🤸',text:'exercise'},
+  {id:'a_rest',emoji:'🛋️',text:'have a rest'},
+  {id:'a_sleep',emoji:'😴',text:'sleep'},
+  {id:'a_doctor',emoji:'🩺',text:'see a doctor'},
+  {id:'a_walk',emoji:'🚶‍♀️',text:'go for a walk'},
+  {id:'a_bubbles',emoji:'🫧',text:'blow bubbles'},
+  {id:'a_quiet',emoji:'🤫',text:'go to a quiet space'},
+  {id:'a_fidget',emoji:'🧸',text:'use a fidget toy'},
+  {id:'a_squeeze',emoji:'🤲',text:'squeeze something'},
+  {id:'a_story',emoji:'📖',text:'read a story'},
+  {id:'a_sayfeel',emoji:'🗣️',text:'say how I feel'},
+  {id:'a_listen',emoji:'👂',text:'listen'},
+  {id:'a_focus',emoji:'🧠',text:'focus'},
+  {id:'a_learn',emoji:'✏️',text:'learn'},
+  {id:'a_help',emoji:'🤝',text:'help others'},
+  {id:'a_hug',emoji:'🤗',text:'ask for a hug'},
+  {id:'a_margot',emoji:'🐾',text:'cuddle with Margot'},
+  {id:'a_trampoline',emoji:'🤸',text:'go on trampoline'},
+  {id:'a_pace',emoji:'🚶',text:'pace up and down'},
+  {id:'a_coldwater',emoji:'💦',text:'splash cold water on face'},
+  {id:'a_bath',emoji:'🛁',text:'have a bath'},
+];
+const TK_KEY='__toolkit'; // stored inside the main data object so it syncs
+
 const SK='checkin_all_v2';
 const GIST_TK='checkin_gist_token';
 const GIST_ID='checkin_gist_id';
@@ -354,8 +464,11 @@ let topicFilter='all';
 let parentMode=false;
 
 // ── STORAGE ──────────────────────────────────────────────
-function load(){try{return JSON.parse(localStorage.getItem(SK))||{};}catch{return {};}}
-function save(d){localStorage.setItem(SK,JSON.stringify(d));}
+function loadRaw(){try{return JSON.parse(localStorage.getItem(SK))||{};}catch{return {};}}
+function load(){const d=loadRaw();const out={};for(const k in d){if(k!==TK_KEY)out[k]=d[k];}return out;}
+function save(d){const raw=loadRaw();const merged={...d};if(raw[TK_KEY]!==undefined)merged[TK_KEY]=raw[TK_KEY];localStorage.setItem(SK,JSON.stringify(merged));}
+function loadToolkit(){const raw=loadRaw();return raw[TK_KEY]||null;}
+function saveToolkit(tk){const raw=loadRaw();raw[TK_KEY]=tk;localStorage.setItem(SK,JSON.stringify(raw));}
 function todayKey(){return fmtKey(new Date());}
 function fmtKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 
@@ -677,18 +790,35 @@ function drawTrendChart(allKeys,data){
 
   // Draw each topic line
   at.forEach(t=>{
-    const pts=allKeys.map((k,i)=>({x:P.l+i*xStep,y:P.t+cH-((data[k][t.key]-1)/9)*cH}));
+    // Build points, skipping excluded days so line connects valid days only
+    const pts=[];
+    allKeys.forEach((k,i)=>{
+      if(isExcluded(k,t.key))return;
+      pts.push({x:P.l+i*xStep,y:P.t+cH-((data[k][t.key]-1)/9)*cH});
+    });
+    if(pts.length<2)return;
+    // Area fill
     ctx.beginPath();ctx.moveTo(pts[0].x,P.t+cH);pts.forEach(p=>ctx.lineTo(p.x,p.y));
     ctx.lineTo(pts[pts.length-1].x,P.t+cH);ctx.closePath();ctx.fillStyle=t.color+'15';ctx.fill();
+    // Line — connects directly from one valid point to the next, skipping excluded days
     ctx.beginPath();ctx.strokeStyle=t.color;ctx.lineWidth=2;ctx.lineJoin='round';ctx.lineCap='round';
     pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));ctx.stroke();
+    // Dots on valid days only
     pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,2.5,0,Math.PI*2);ctx.fillStyle=t.color;ctx.fill();});
   });
 
-  // Overall trend line — only use non-excluded data points
-  const validForTrend = allKeys.filter(k => at.every(t => !isExcluded(k, t.key)));
+  // Overall trend line — exclude non-school days from school metric in regression
+  const validForTrend = allKeys.filter(k => {
+    // Only include days where at least one active topic has valid data
+    return at.some(t => !isExcluded(k, t.key));
+  });
   if(validForTrend.length >= 2){
-    const avgVals=validForTrend.map(k=>at.reduce((s,t)=>s+data[k][t.key],0)/at.length);
+    const avgVals=validForTrend.map(k=>{
+      // Average only the non-excluded topics for this day
+      const validTopics=at.filter(t=>!isExcluded(k,t.key));
+      if(validTopics.length===0)return null;
+      return validTopics.reduce((s,t)=>s+data[k][t.key],0)/validTopics.length;
+    }).filter(v=>v!==null);
     const n=avgVals.length;
     const sumX=avgVals.reduce((_,__,i)=>_+i,0);
     const sumY=avgVals.reduce((a,b)=>a+b,0);
@@ -818,7 +948,7 @@ async function syncToGist(silent=false){
   const btn=document.getElementById('sync-btn');
   if(btn&&!silent){btn.innerHTML='<span class="spinner"></span>Syncing…';btn.disabled=true;}
   try{
-    const content=JSON.stringify(load(),null,2);
+    const content=JSON.stringify(loadRaw(),null,2);
     const existingId=localStorage.getItem(GIST_ID);
     const res=await fetch(existingId?`https://api.github.com/gists/${existingId}`:'https://api.github.com/gists',{
       method:existingId?'PATCH':'POST',
@@ -977,14 +1107,135 @@ function resetAll(){
   }
 }
 
+// ── TOOLKIT ───────────────────────────────────────────────
+// State shape: { feelingId: [actionId, ...], _customFeelings:{zoneId:[{id,emoji,text}]}, _customActions:[{id,emoji,text}] }
+function tkState(){
+  const tk=loadToolkit();
+  if(tk)return tk;
+  return {_customFeelings:{},_customActions:[]};
+}
+function tkAllActions(){
+  const st=tkState();
+  return [...TK_ACTIONS,...(st._customActions||[])];
+}
+function tkFeelingsForZone(zone){
+  const st=tkState();
+  const custom=(st._customFeelings&&st._customFeelings[zone.id])||[];
+  return [...zone.feelings,...custom];
+}
+
+function buildToolkit(){
+  const wrap=document.getElementById('toolkit-wrap');
+  let html='';
+  if(parentMode){
+    html+=`<div class="tk-readonly-note">👁 Viewing Neva's toolkit — read only</div>`;
+  }
+  TK_ZONES.forEach(zone=>{
+    const feelings=tkFeelingsForZone(zone);
+    html+=`<div class="tk-zone" style="background:${zone.bg};border-color:${zone.border}">
+      <div class="tk-zone-head">
+        <span style="width:12px;height:12px;border-radius:50%;background:${zone.color};display:block"></span>
+        <span class="tk-zone-title" style="color:${zone.color}">${zone.title}</span>
+        <span class="tk-zone-sub">${zone.sub}</span>
+      </div>`;
+    feelings.forEach(f=>{
+      const chosen=(tkState()[f.id]||[]);
+      html+=`<div class="tk-feeling" id="tkf-${f.id}" onclick="tkToggleFeeling('${f.id}',event)">
+        <div class="tk-feeling-row">
+          <span class="tk-feeling-emoji">${f.emoji}</span>
+          <span class="tk-feeling-text">${esc(f.text)}</span>
+          <span class="tk-feeling-count" id="tkc-${f.id}">${chosen.length?chosen.length+' ✓':'add'}</span>
+          <span class="tk-feeling-chev">›</span>
+        </div>
+        <div class="tk-actions" id="tka-${f.id}">${tkActionChips(f.id)}</div>
+      </div>`;
+    });
+    if(!parentMode){
+      html+=`<button class="tk-mini-add" onclick="tkAddFeeling('${zone.id}')">+ add a feeling</button>`;
+    }
+    html+=`</div>`;
+  });
+  wrap.innerHTML=html;
+}
+
+function tkActionChips(feelingId){
+  const chosen=tkState()[feelingId]||[];
+  let h='';
+  tkAllActions().forEach(a=>{
+    const on=chosen.includes(a.id);
+    // In parent mode, only show chosen ones
+    if(parentMode && !on)return;
+    h+=`<span class="tk-chip ${on?'on':''}" onclick="tkToggleAction('${feelingId}','${a.id}',event)">
+      <span class="tk-chip-emoji">${a.emoji}</span>${esc(a.text)}</span>`;
+  });
+  if(parentMode && chosen.length===0){
+    h=`<span style="font-size:0.76rem;color:var(--soft);font-style:italic">No strategies chosen yet</span>`;
+  }
+  if(!parentMode){
+    h+=`<button class="tk-mini-add" style="width:100%;text-align:left;margin-top:4px" onclick="tkAddAction('${feelingId}',event)">+ add my own strategy</button>`;
+  }
+  return h;
+}
+
+function tkToggleFeeling(feelingId,e){
+  if(e)e.stopPropagation();
+  const el=document.getElementById(`tkf-${feelingId}`);
+  el.classList.toggle('open');
+}
+
+function tkToggleAction(feelingId,actionId,e){
+  if(e)e.stopPropagation();
+  if(parentMode)return;
+  const st=tkState();
+  const list=st[feelingId]||[];
+  const idx=list.indexOf(actionId);
+  if(idx>=0)list.splice(idx,1); else list.push(actionId);
+  st[feelingId]=list;
+  saveToolkit(st);
+  // Refresh just this feeling's chips + count
+  document.getElementById(`tka-${feelingId}`).innerHTML=tkActionChips(feelingId);
+  const c=document.getElementById(`tkc-${feelingId}`);
+  c.textContent=list.length?list.length+' ✓':'add';
+  autoSync();
+}
+
+function tkAddAction(feelingId,e){
+  if(e)e.stopPropagation();
+  const text=prompt('Add your own strategy (e.g. "cuddle the dog")');
+  if(!text||!text.trim())return;
+  const st=tkState();
+  if(!st._customActions)st._customActions=[];
+  const id='ac_'+Date.now();
+  st._customActions.push({id,emoji:'⭐',text:text.trim()});
+  // auto-select it for this feeling
+  const list=st[feelingId]||[];list.push(id);st[feelingId]=list;
+  saveToolkit(st);
+  document.getElementById(`tka-${feelingId}`).innerHTML=tkActionChips(feelingId);
+  const c=document.getElementById(`tkc-${feelingId}`);c.textContent=list.length+' ✓';
+  autoSync();
+}
+
+function tkAddFeeling(zoneId){
+  const text=prompt('Add a feeling (e.g. "my tummy hurts")');
+  if(!text||!text.trim())return;
+  const st=tkState();
+  if(!st._customFeelings)st._customFeelings={};
+  if(!st._customFeelings[zoneId])st._customFeelings[zoneId]=[];
+  st._customFeelings[zoneId].push({id:'fc_'+Date.now(),emoji:'•',text:text.trim()});
+  saveToolkit(st);
+  buildToolkit();
+  autoSync();
+}
+
 // ── NAV ───────────────────────────────────────────────────
 function showScreen(name){
-  ['today','history','analysis','settings'].forEach(s=>{
+  ['today','history','analysis','toolkit','settings'].forEach(s=>{
     document.getElementById(`screen-${s}`)?.classList.toggle('active',s===name);
     document.getElementById(`btn-${s}`)?.classList.toggle('active',s===name);
   });
   if(name==='history')buildHistoryTable();
   if(name==='analysis')buildAnalysis();
+  if(name==='toolkit')buildToolkit();
 }
 
 // ── TOAST & CONFETTI ──────────────────────────────────────
@@ -1009,8 +1260,7 @@ async function loadFromGist(gistId){
     if(!content)throw new Error('No data found');
     const data=JSON.parse(content);
     localStorage.setItem(GIST_ID,gistId);
-    localStorage.removeItem(SK);
-    save(data);
+    localStorage.setItem(SK,JSON.stringify(data));
     showToast('Data loaded ✓');
     enterParentMode();
     buildForm();
